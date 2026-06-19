@@ -1,19 +1,11 @@
-/**
- * FreshWave Laundry – script.js
- * Author: FreshWave Team
- * Description: All JavaScript functionality for the Laundry Service Website
- * Features: Page Loader, Dark/Light Mode, Sticky Navbar, Smooth Scroll,
- *           Scroll Reveal, Animated Counters, Service Filter, Booking Form,
- *           Price Calculator, Newsletter, Back-to-Top
- */
+// --- FreshWave Laundry Main Script ---
+// Created for student laundry assignment project
 
-'use strict';
+// Global pricing state and configuration
+const GST_RATE = 0.18; // 18% GST Tax rate
+let cart = []; // Array to hold selected services
 
-/* ============================================================
-   CONSTANTS & PRICING DATA
-   ============================================================ */
-
-/** Pricing map for each laundry service (₹ per item) */
+// Service pricing list (in ₹)
 const SERVICE_PRICES = {
   'Dry Cleaning': 150,
   'Wash & Fold': 100,
@@ -23,829 +15,121 @@ const SERVICE_PRICES = {
   'Express Service': 250
 };
 
-/** Cart State Management (Student-level implementation)
- * Holds array of objects: { name: string, price: number, quantity: number }
- */
-let cart = [];
+// EmailJS Credentials - replace these with your actual keys from your emailjs.com account
+const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY";
+const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID";
+const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
 
-// Initialize EmailJS with placeholder public key
-if (typeof emailjs !== 'undefined') {
+// Setup and initialize EmailJS
+if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
   emailjs.init({
-    publicKey: "YOUR_PUBLIC_KEY" // REPLACE WITH YOUR EMAILJS PUBLIC KEY
+    publicKey: EMAILJS_PUBLIC_KEY
   });
 }
 
-/* ============================================================
-   1. PAGE LOADER
-   ============================================================ */
-
-/**
- * Hides the full-screen loading overlay once the page is fully loaded.
- * Adds the 'hidden' class which triggers a CSS fade-out transition.
- */
-function initPageLoader() {
+// Execute when page structure is ready
+document.addEventListener('DOMContentLoaded', function() {
+  
+  // 1. Page Loader Handler
   const loader = document.getElementById('pageLoader');
-  if (!loader) return;
-
-  // Wait for window load event (all assets loaded)
-  window.addEventListener('load', () => {
-    setTimeout(() => {
-      loader.classList.add('hidden');
-      // Remove from DOM after transition ends
-      loader.addEventListener('transitionend', () => loader.remove(), { once: true });
-    }, 500);
-  });
-}
-
-/* ============================================================
-   2. DARK / LIGHT MODE TOGGLE
-   ============================================================ */
-
-/**
- * Initializes dark/light mode toggle.
- * Reads saved preference from localStorage and toggles between themes.
- */
-function initThemeToggle() {
-  const toggleBtn = document.getElementById('themeToggle');
-  const themeIcon = document.getElementById('themeIcon');
-  const htmlEl = document.documentElement;
-
-  if (!toggleBtn || !themeIcon) return;
-
-  // Load saved theme preference (default: 'light')
-  const savedTheme = localStorage.getItem('freshwave_theme') || 'light';
-  applyTheme(savedTheme);
-
-  toggleBtn.addEventListener('click', () => {
-    const current = htmlEl.getAttribute('data-theme');
-    const newTheme = current === 'dark' ? 'light' : 'dark';
-    applyTheme(newTheme);
-    localStorage.setItem('freshwave_theme', newTheme);
-  });
-
-  /**
-   * Applies the specified theme to the HTML element and updates toggle icon.
-   * @param {string} theme - 'dark' or 'light'
-   */
-  function applyTheme(theme) {
-    htmlEl.setAttribute('data-theme', theme);
-    if (theme === 'dark') {
-      themeIcon.classList.replace('fa-moon', 'fa-sun');
-      toggleBtn.title = 'Switch to Light Mode';
-    } else {
-      themeIcon.classList.replace('fa-sun', 'fa-moon');
-      toggleBtn.title = 'Switch to Dark Mode';
-    }
-  }
-}
-
-/* ============================================================
-   3. STICKY NAVBAR & ACTIVE LINK HIGHLIGHTING
-   ============================================================ */
-
-/**
- * Adds a scrolled class to the navbar when page is scrolled.
- * Also highlights the nav link corresponding to the current visible section.
- */
-function initNavbar() {
-  const navbar = document.getElementById('mainNavbar');
-  const navLinks = document.querySelectorAll('#navMenu .nav-link');
-  const sections = document.querySelectorAll('section[id]');
-
-  if (!navbar) return;
-
-  // Update navbar appearance on scroll
-  window.addEventListener('scroll', () => {
-    // Highlight active section link
-    highlightActiveNavLink(navLinks, sections);
-  }, { passive: true });
-
-  // Smooth close of mobile menu when nav link clicked
-  navLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      const navCollapse = document.getElementById('navMenu');
-      if (navCollapse && navCollapse.classList.contains('show')) {
-        const bsCollapse = bootstrap.Collapse.getInstance(navCollapse);
-        if (bsCollapse) bsCollapse.hide();
-      }
+  if (loader) {
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        loader.classList.add('hidden');
+      }, 500);
     });
-  });
-}
-
-/**
- * Determines which section is currently in view and marks its nav link as active.
- * @param {NodeList} links - All navigation anchor links
- * @param {NodeList} sections - All page sections with IDs
- */
-function highlightActiveNavLink(links, sections) {
-  let currentSection = '';
-  const scrollY = window.scrollY + 120; // Offset for sticky navbar
-
-  sections.forEach(section => {
-    if (scrollY >= section.offsetTop) {
-      currentSection = section.getAttribute('id');
-    }
-  });
-
-  links.forEach(link => {
-    link.classList.remove('active');
-    const href = link.getAttribute('href');
-    if (href === `#${currentSection}`) {
-      link.classList.add('active');
-    }
-  });
-}
-
-/* ============================================================
-   4. BACK TO TOP BUTTON
-   ============================================================ */
-
-/**
- * Shows/hides the "Back to Top" button based on scroll position.
- * Scrolls smoothly to the top when clicked.
- */
-function initBackToTop() {
-  const btn = document.getElementById('backToTop');
-  if (!btn) return;
-
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 400) {
-      btn.classList.add('visible');
-    } else {
-      btn.classList.remove('visible');
-    }
-  }, { passive: true });
-
-  btn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-}
-
-/* ============================================================
-   5. SCROLL REVEAL ANIMATIONS
-   ============================================================ */
-
-/**
- * Uses IntersectionObserver to reveal elements as they enter the viewport.
- * Elements with [data-reveal] attribute get the 'revealed' class added.
- * Supports delay via [data-delay] attribute (in milliseconds).
- */
-function initScrollReveal() {
-  const elements = document.querySelectorAll('[data-reveal]');
-
-  if (!elements.length) return;
-
-  // Fallback: if IntersectionObserver is not supported, show all elements immediately
-  if (!('IntersectionObserver' in window)) {
-    elements.forEach(el => el.classList.add('revealed'));
-    return;
   }
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const delay = parseInt(entry.target.getAttribute('data-delay') || 0, 10);
-        setTimeout(() => {
-          entry.target.classList.add('revealed');
-        }, delay);
-        // Unobserve after revealing (animation plays once)
-        observer.unobserve(entry.target);
-      }
-    });
-  }, {
-    threshold: 0.12,      // Trigger when 12% of element is visible
-    rootMargin: '0px 0px -40px 0px'  // Slightly before it fully enters
-  });
-
-  elements.forEach(el => observer.observe(el));
-}
-
-/* ============================================================
-   6. ANIMATED COUNTERS (ACHIEVEMENTS SECTION)
-   ============================================================ */
-
-/**
- * Animates numeric counters from 0 to their target value.
- * Uses IntersectionObserver to start animation when section is visible.
- * Reads [data-target] and [data-suffix] attributes from counter elements.
- */
-function initCounters() {
-  const counters = document.querySelectorAll('.stat-number');
-  if (!counters.length) return;
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        animateCounter(entry.target);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.5 });
-
-  counters.forEach(counter => observer.observe(counter));
-}
-
-/**
- * Runs the counting animation for a single counter element.
- * @param {HTMLElement} el - The counter element with data-target and data-suffix
- */
-function animateCounter(el) {
-  const target = parseInt(el.getAttribute('data-target'), 10);
-  const suffix = el.getAttribute('data-suffix') || '';
-  const duration = 1800; // ms
-  const frameDuration = 1000 / 60; // ~16ms per frame at 60fps
-  const totalFrames = Math.round(duration / frameDuration);
-  let frame = 0;
-
-  const counter = setInterval(() => {
-    frame++;
-    // Ease-out progress curve: starts fast, slows down at end
-    const progress = easeOutQuart(frame / totalFrames);
-    const currentVal = Math.round(target * progress);
-    el.textContent = currentVal + suffix;
-
-    if (frame >= totalFrames) {
-      clearInterval(counter);
-      el.textContent = target + suffix; // Ensure exact final value
-    }
-  }, frameDuration);
-}
-
-/**
- * Ease-out quartic function for smooth deceleration.
- * @param {number} t - Progress (0 to 1)
- * @returns {number} Eased value (0 to 1)
- */
-function easeOutQuart(t) {
-  return 1 - Math.pow(1 - t, 4);
-}
-
-/* ============================================================
-   7. SERVICE SEARCH & FILTER
-   ============================================================ */
-
-/**
- * Handles the service search input and filter tab buttons.
- * Filters service cards based on search text and/or category.
- */
-function initServiceFilter() {
-  const searchInput = document.getElementById('serviceSearch');
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const serviceItems = document.querySelectorAll('.service-item');
-  const noResults = document.getElementById('noServiceResults');
-
-  if (!searchInput) return;
-
-  let activeFilter = 'all';
-  let searchQuery = '';
-
-  // Search input listener
-  searchInput.addEventListener('input', () => {
-    searchQuery = searchInput.value.trim().toLowerCase();
-    applyFilters();
-  });
-
-  // Filter tab button listeners
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeFilter = btn.getAttribute('data-filter');
-      applyFilters();
-    });
-  });
-
-  /**
-   * Applies both search query and category filter simultaneously.
-   * Shows/hides cards and displays a "no results" message if needed.
-   */
-  function applyFilters() {
-    let visibleCount = 0;
-
-    serviceItems.forEach(item => {
-      const category = item.getAttribute('data-category');
-      const titleEl = item.querySelector('.service-title');
-      const descEl = item.querySelector('.service-desc');
-      const title = titleEl ? titleEl.textContent.toLowerCase() : '';
-      const desc = descEl ? descEl.textContent.toLowerCase() : '';
-
-      // Check if item passes both filters
-      const categoryMatch = activeFilter === 'all' || category === activeFilter;
-      const searchMatch = !searchQuery || title.includes(searchQuery) || desc.includes(searchQuery);
-
-      if (categoryMatch && searchMatch) {
-        item.classList.remove('hidden');
-        visibleCount++;
-      } else {
-        item.classList.add('hidden');
-      }
-    });
-
-    // Show "no results" message if nothing is visible
-    if (noResults) {
-      noResults.classList.toggle('d-none', visibleCount > 0);
-    }
-  }
-}
-
-/* ============================================================
-   8. BOOKING FORM WITH VALIDATION & LOCAL STORAGE
-   ============================================================ */
-
-/**
- * Handles booking form submission with full client-side validation.
- * On success: saves to localStorage, shows confirmation card, clears form.
- */
-function initBookingForm() {
-  const form = document.getElementById('bookingForm');
-  if (!form) return;
-
-  // Set min date to today for pickup date input
-  const dateInput = document.getElementById('bookDate');
-  if (dateInput) {
-    const today = new Date().toISOString().split('T')[0];
-    dateInput.setAttribute('min', today);
-  }
-
-  // Render initial empty cart summary
-  updateCartUI();
-
-  // Add click handlers for selection list buttons (+ Add / - Remove)
-  document.querySelectorAll('.btn-add-item').forEach(button => {
-    button.addEventListener('click', () => {
-      const serviceName = button.getAttribute('data-service');
-      const price = SERVICE_PRICES[serviceName];
-      addToCart(serviceName, price);
-    });
-  });
-
-  document.querySelectorAll('.btn-remove-item').forEach(button => {
-    button.addEventListener('click', () => {
-      const serviceName = button.getAttribute('data-service');
-      removeFromCart(serviceName);
-    });
-  });
-
-  // Handle direct clicks from Services cards (Section 4)
-  document.querySelectorAll('.btn-add-direct').forEach(button => {
-    button.addEventListener('click', () => {
-      const serviceName = button.getAttribute('data-service');
-      const price = SERVICE_PRICES[serviceName];
-      
-      // Add item to cart
-      addToCart(serviceName, price);
-      
-      // Scroll smoothly to the booking section
-      const bookingSection = document.getElementById('booking');
-      if (bookingSection) {
-        const navbarHeight = document.getElementById('mainNavbar')?.offsetHeight || 76;
-        const offsetTop = bookingSection.getBoundingClientRect().top + window.scrollY - navbarHeight;
-        window.scrollTo({ top: offsetTop, behavior: 'smooth' });
-      }
-      
-      // Flash the selected item element for UX feedback
-      const idFormatted = serviceName.replace(/ & /g, '-').replace(/ /g, '-').replace(/amp;/g, '');
-      const badgeId = 'qty-' + idFormatted;
-      const badgeEl = document.getElementById(badgeId);
-      if (badgeEl) {
-        badgeEl.classList.add('bg-warning');
-        setTimeout(() => {
-          badgeEl.classList.remove('bg-warning');
-        }, 800);
-      }
-    });
-  });
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    clearFormErrors();
-
-    if (validateBookingForm()) {
-      submitBooking();
-    }
-  });
-
-  // Cart Helper functions
-  function addToCart(serviceName, price) {
-    // Check if item already exists in cart
-    const existingItem = cart.find(item => item.name === serviceName);
-    if (existingItem) {
-      existingItem.quantity += 1;
-    } else {
-      cart.push({ name: serviceName, price: price, quantity: 1 });
-    }
-    updateCartUI();
-  }
-
-  function removeFromCart(serviceName) {
-    const itemIndex = cart.findIndex(item => item.name === serviceName);
-    if (itemIndex > -1) {
-      cart[itemIndex].quantity -= 1;
-      // If quantity becomes 0, remove service completely
-      if (cart[itemIndex].quantity <= 0) {
-        cart.splice(itemIndex, 1);
-      }
-    }
-    updateCartUI();
-  }
-
-  function updateCartUI() {
-    let total = 0;
-    
-    // Update individual service quantity badges in the selection list
-    // Reset all displays first
-    document.querySelectorAll('.qty-display').forEach(badge => {
-      badge.textContent = '0';
-    });
-    
-    // Set badge text for items currently in cart
-    cart.forEach(item => {
-      // Map service name to ID format: "Wash & Fold" -> "qty-Wash-Fold", "Dry Cleaning" -> "qty-Dry-Cleaning"
-      const idFormatted = item.name.replace(/ & /g, '-').replace(/ /g, '-').replace(/amp;/g, '');
-      const id = 'qty-' + idFormatted;
-      const el = document.getElementById(id);
-      if (el) {
-        el.textContent = item.quantity;
-      }
-      total += item.price * item.quantity;
-    });
-
-    // Update total price display
-    document.getElementById('cartTotalPrice').textContent = `₹${total}`;
-
-    // Render cart items list summary
-    const emptyState = document.getElementById('cartEmptyState');
-    const itemsList = document.getElementById('cartItemsList');
-    const cartErr = document.getElementById('cartGeneralErr');
-    
-    if (cart.length === 0) {
-      if (emptyState) emptyState.classList.remove('d-none');
-      if (itemsList) {
-        itemsList.classList.add('d-none');
-        itemsList.innerHTML = '';
-      }
-    } else {
-      if (emptyState) emptyState.classList.add('d-none');
-      if (itemsList) {
-        itemsList.classList.remove('d-none');
-        itemsList.innerHTML = cart.map(item => `
-          <li class="list-group-item d-flex justify-content-between align-items-center text-dark bg-transparent border-bottom px-0 py-2">
-            <div>
-              <strong>${item.name}</strong> <small class="text-muted">(₹${item.price} each)</small>
-            </div>
-            <span class="badge bg-primary rounded-pill px-3 py-2">x${item.quantity} - ₹${item.price * item.quantity}</span>
-          </li>
-        `).join('');
-      }
-      if (cartErr) cartErr.textContent = ''; // clear cart error if any
-    }
-  }
-
-  function validateBookingForm() {
-    let isValid = true;
-
-    // Check if cart is empty
-    if (cart.length === 0) {
-      showError('cartGeneralErr', 'Please add at least one service to your cart.');
-      isValid = false;
-    }
-
-    // Validate Full Name
-    const name = document.getElementById('bookName').value.trim();
-    if (!name) {
-      showError('bookNameErr', 'Full name is required.');
-      isValid = false;
-    } else if (name.length < 2) {
-      showError('bookNameErr', 'Name must be at least 2 characters.');
-      isValid = false;
-    }
-
-    // Validate Email
-    const email = document.getElementById('bookEmail').value.trim();
-    if (!email) {
-      showError('bookEmailErr', 'Email address is required.');
-      isValid = false;
-    } else if (!isValidEmail(email)) {
-      showError('bookEmailErr', 'Please enter a valid email address.');
-      isValid = false;
-    }
-
-    // Validate Phone
-    const phone = document.getElementById('bookPhone').value.trim();
-    if (!phone) {
-      showError('bookPhoneErr', 'Phone number is required.');
-      isValid = false;
-    } else if (!isValidPhone(phone)) {
-      showError('bookPhoneErr', 'Enter a valid phone number (10–15 digits).');
-      isValid = false;
-    }
-
-    // Validate Pickup Date
-    const date = document.getElementById('bookDate').value;
-    if (!date) {
-      showError('bookDateErr', 'Pickup date is required.');
-      isValid = false;
-    } else {
-      const selectedDate = new Date(date);
-      const today = new Date();
-      today.setHours(0, 0, 0, 0);
-      if (selectedDate < today) {
-        showError('bookDateErr', 'Pickup date cannot be in the past.');
-        isValid = false;
-      }
-    }
-
-    // Validate Address
-    const address = document.getElementById('bookAddress').value.trim();
-    if (!address) {
-      showError('bookAddressErr', 'Pickup address is required.');
-      isValid = false;
-    } else if (address.length < 10) {
-      showError('bookAddressErr', 'Please provide a complete address.');
-      isValid = false;
-    }
-
-    return isValid;
-  }
-
-  function submitBooking() {
-    const bookingId = generateBookingId();
-    const totalAmount = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    
-    const bookingData = {
-      id: bookingId,
-      name: document.getElementById('bookName').value.trim(),
-      email: document.getElementById('bookEmail').value.trim(),
-      phone: document.getElementById('bookPhone').value.trim(),
-      date: document.getElementById('bookDate').value,
-      address: document.getElementById('bookAddress').value.trim(),
-      instructions: document.getElementById('bookInstructions').value.trim(),
-      cart: [...cart],
-      total: totalAmount,
-      timestamp: new Date().toISOString()
-    };
-
-    // Format services list for EmailJS
-    const servicesText = cart.map(item => `${item.name} (x${item.quantity}) - ₹${item.price * item.quantity}`).join('\n');
-
-    // EmailJS integration parameters
-    const templateParams = {
-      booking_id: bookingId,
-      customer_name: bookingData.name,
-      customer_email: bookingData.email,
-      customer_phone: bookingData.phone,
-      selected_services: servicesText,
-      total_price: `₹${totalAmount}`,
-      pickup_date: formatDate(bookingData.date),
-      delivery_address: bookingData.address,
-      special_instructions: bookingData.instructions || 'None'
-    };
-
-    const statusFeedback = document.getElementById('bookingGeneralErr');
-    if (statusFeedback) {
-      statusFeedback.innerHTML = '<span class="text-info"><i class="fas fa-spinner fa-spin me-2"></i>Processing your booking & sending email...</span>';
-    }
-
-    // Call EmailJS
-    if (typeof emailjs !== 'undefined') {
-      emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
-        .then(function(response) {
-          console.log('EmailJS Sent Successful!', response.status, response.text);
-          if (statusFeedback) statusFeedback.innerHTML = '';
-          
-          saveBookingToStorage(bookingData);
-          showConfirmationCard(bookingData);
-          clearFormAndCart();
-        }, function(error) {
-          console.warn('EmailJS error or missing API keys. Simulating local success for evaluator.', error);
-          if (statusFeedback) {
-            statusFeedback.innerHTML = '<span class="text-warning d-block my-2"><i class="fas fa-info-circle me-1"></i>EmailJS was triggered but keys are not configured yet. Booking simulated successfully.</span>';
-          }
-          
-          saveBookingToStorage(bookingData);
-          showConfirmationCard(bookingData);
-          clearFormAndCart();
-        });
-    } else {
-      // Fallback if EmailJS is blocked/missing
-      console.warn('EmailJS SDK not found. Simulating local success.');
-      saveBookingToStorage(bookingData);
-      showConfirmationCard(bookingData);
-      clearFormAndCart();
-    }
-  }
-
-  function clearFormAndCart() {
-    form.reset();
-    cart = [];
-    updateCartUI();
-  }
-
-  function saveBookingToStorage(data) {
-    const existingRaw = localStorage.getItem('freshwave_bookings');
-    const bookings = existingRaw ? JSON.parse(existingRaw) : [];
-    bookings.push(data);
-    localStorage.setItem('freshwave_bookings', JSON.stringify(bookings));
-  }
-
-  function showConfirmationCard(data) {
-    const card = document.getElementById('confirmationCard');
-    if (!card) return;
-
-    document.getElementById('confirmBookingId').textContent = data.id;
-    document.getElementById('confirmName').textContent = data.name;
-    document.getElementById('confirmEmailAddress').textContent = data.email;
-    document.getElementById('confirmPhone').textContent = data.phone;
-    document.getElementById('confirmDate').textContent = formatDate(data.date);
-    document.getElementById('confirmTotal').textContent = `₹${data.total}`;
-
-    // Populate selected services cart details list
-    const servicesListEl = document.getElementById('confirmServicesList');
-    if (servicesListEl) {
-      servicesListEl.innerHTML = data.cart.map(item => `
-        <div class="d-flex justify-content-between border-bottom py-1">
-          <span>${item.name} x ${item.quantity}</span>
-          <span>₹${item.price * item.quantity}</span>
-        </div>
-      `).join('');
-    }
-
-    card.classList.remove('d-none');
-    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
-
-  function clearFormErrors() {
-    const errorEls = document.querySelectorAll('.invalid-feedback-custom');
-    errorEls.forEach(el => {
-      el.textContent = '';
-    });
-    const cartErr = document.getElementById('cartGeneralErr');
-    if (cartErr) cartErr.textContent = '';
-  }
-}
-
-/* ============================================================
-   9. PRICE CALCULATOR
-   ============================================================ */
-
-/**
- * Sets up the interactive price calculator.
- * Updates price display in real-time when service or quantity changes.
- */
-function initPriceCalculator() {
-  const serviceSelect = document.getElementById('calcService');
-  const qtyInput = document.getElementById('calcQty');
-  const qtyMinus = document.getElementById('qtyMinus');
-  const qtyPlus = document.getElementById('qtyPlus');
-
-  if (!serviceSelect || !qtyInput) return;
-
-  // Quantity control buttons
-  qtyMinus.addEventListener('click', () => {
-    const current = parseInt(qtyInput.value, 10);
-    if (current > 1) {
-      qtyInput.value = current - 1;
-      updatePriceDisplay();
-    }
-  });
-
-  qtyPlus.addEventListener('click', () => {
-    const current = parseInt(qtyInput.value, 10);
-    if (current < 100) {
-      qtyInput.value = current + 1;
-      updatePriceDisplay();
-    }
-  });
-
-  // Prevent invalid quantity input
-  qtyInput.addEventListener('input', () => {
-    let val = parseInt(qtyInput.value, 10);
-    if (isNaN(val) || val < 1) val = 1;
-    if (val > 100) val = 100;
-    qtyInput.value = val;
-    updatePriceDisplay();
-  });
-
-  serviceSelect.addEventListener('change', updatePriceDisplay);
-
-  /**
-   * Recalculates and displays the price breakdown based on
-   * selected service rate and item quantity.
-   */
-  function updatePriceDisplay() {
-    const pricePerItem = parseInt(serviceSelect.value, 10) || 0;
-    const qty = parseInt(qtyInput.value, 10) || 0;
-    const subtotal = pricePerItem * qty;
-    const gst = Math.round(subtotal * GST_RATE);
-    const total = subtotal + gst;
-
-    document.getElementById('priceRate').textContent = pricePerItem ? `₹${pricePerItem} /item` : '₹0 /item';
-    document.getElementById('priceQty').textContent = qty;
-    document.getElementById('priceSubtotal').textContent = `₹${subtotal}`;
-    document.getElementById('priceGst').textContent = `₹${gst}`;
-
-    // Animate total change
-    const totalEl = document.getElementById('priceTotal');
-    totalEl.classList.add('price-updating');
-    setTimeout(() => {
-      totalEl.textContent = `₹${total}`;
-      totalEl.classList.remove('price-updating');
-    }, 100);
-  }
-
-  // Run once on init
-  updatePriceDisplay();
-}
-
-/* ============================================================
-   10. NEWSLETTER SUBSCRIPTION
-   ============================================================ */
-
-/**
- * Handles newsletter form submission.
- * Validates email, saves to localStorage, shows success message.
- */
-function initNewsletter() {
-  const form = document.getElementById('newsletterForm');
-  if (!form) return;
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const emailInput = document.getElementById('newsletterEmail');
-    const errorEl = document.getElementById('newsletterEmailErr');
-    const successEl = document.getElementById('newsletterSuccess');
-    const btn = document.getElementById('newsletterBtn');
-
-    // Reset previous state
-    errorEl.textContent = '';
-    successEl.classList.add('d-none');
-
-    const email = emailInput.value.trim();
-
-    // Validate email
-    if (!email) {
-      showError('newsletterEmailErr', 'Please enter your email address.', '#ef4444');
-      return;
-    }
-    if (!isValidEmail(email)) {
-      showError('newsletterEmailErr', 'Please enter a valid email address.', '#ef4444');
-      return;
-    }
-
-    // Check for duplicate subscription
-    const existing = JSON.parse(localStorage.getItem('freshwave_subscribers') || '[]');
-    if (existing.includes(email)) {
-      showError('newsletterEmailErr', 'This email is already subscribed!', '#f59e0b');
-      return;
-    }
-
-    // Save subscriber to localStorage
-    existing.push(email);
-    localStorage.setItem('freshwave_subscribers', JSON.stringify(existing));
-
-    // Show success
-    emailInput.value = '';
-    successEl.classList.remove('d-none');
-    btn.innerHTML = '<i class="fas fa-check me-2"></i>Subscribed!';
-    btn.disabled = true;
-
-    // Reset button after 3 seconds
-    setTimeout(() => {
-      btn.innerHTML = '<i class="fas fa-paper-plane me-2"></i>Subscribe';
-      btn.disabled = false;
-    }, 3000);
-  });
-}
-
-/* ============================================================
-   11. FOOTER YEAR
-   ============================================================ */
-
-/**
- * Dynamically sets the current year in the footer copyright text.
- */
-function initFooterYear() {
+  // 2. Set copyright year in footer
   const yearEl = document.getElementById('footerYear');
   if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
   }
-}
 
-/* ============================================================
-   12. SMOOTH SCROLLING FOR ANCHOR LINKS
-   ============================================================ */
+  // 3. Dark/Light Mode Theme Toggle
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = document.getElementById('themeIcon');
+  if (themeToggle && themeIcon) {
+    // load theme setting if stored previously
+    const savedTheme = localStorage.getItem('freshwave_theme') || 'light';
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    updateThemeIcon(savedTheme);
 
-/**
- * Enables smooth scrolling for all in-page anchor links (#...).
- * Accounts for the fixed navbar height.
- */
-function initSmoothScroll() {
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+    themeToggle.addEventListener('click', function() {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('freshwave_theme', newTheme);
+      updateThemeIcon(newTheme);
+    });
+  }
+
+  function updateThemeIcon(theme) {
+    if (theme === 'dark') {
+      themeIcon.classList.replace('fa-moon', 'fa-sun');
+      themeToggle.title = 'Switch to Light Mode';
+    } else {
+      themeIcon.classList.replace('fa-sun', 'fa-moon');
+      themeToggle.title = 'Switch to Dark Mode';
+    }
+  }
+
+  // 4. Sticky Navbar & Scroll Highlighting
+  const navLinks = document.querySelectorAll('#navMenu .nav-link');
+  const sections = document.querySelectorAll('section[id]');
+  
+  window.addEventListener('scroll', function() {
+    let currentSection = '';
+    const scrollY = window.scrollY + 120; // Offset for navbar height
+    
+    sections.forEach(function(section) {
+      if (scrollY >= section.offsetTop) {
+        currentSection = section.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach(function(link) {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + currentSection) {
+        link.classList.add('active');
+      }
+    });
+  });
+
+  // hide collapsed navbar menu when click links (on mobile devices)
+  navLinks.forEach(function(link) {
+    link.addEventListener('click', function() {
+      const navCollapse = document.getElementById('navMenu');
+      if (navCollapse && navCollapse.classList.contains('show')) {
+        const bsCollapse = bootstrap.Collapse.getInstance(navCollapse);
+        if (bsCollapse) {
+          bsCollapse.hide();
+        }
+      }
+    });
+  });
+
+  // 5. Back to Top Button
+  const backToTopBtn = document.getElementById('backToTop');
+  if (backToTopBtn) {
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 400) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+    });
+
+    backToTopBtn.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  // 6. Smooth Scroll for link clicks
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
       const targetId = this.getAttribute('href');
       if (targetId === '#') return;
-
       const target = document.querySelector(targetId);
       if (target) {
         e.preventDefault();
@@ -855,84 +139,583 @@ function initSmoothScroll() {
       }
     });
   });
-}
 
-/* ============================================================
-   UTILITY FUNCTIONS
-   ============================================================ */
+  // 7. Scroll Reveal Animations (using IntersectionObserver)
+  const revealElements = document.querySelectorAll('[data-reveal]');
+  if (revealElements.length && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          const delay = parseInt(entry.target.getAttribute('data-delay') || 0, 10);
+          setTimeout(function() {
+            entry.target.classList.add('revealed');
+          }, delay);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
 
-/**
- * Validates an email address against a standard regex pattern.
- * @param {string} email - Email string to validate
- * @returns {boolean}
- */
-function isValidEmail(email) {
-  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  return emailRegex.test(email);
-}
-
-/**
- * Validates a phone number: allows digits, spaces, hyphens, plus sign.
- * Minimum 10 digits, maximum 15 digits.
- * @param {string} phone - Phone string to validate
- * @returns {boolean}
- */
-function isValidPhone(phone) {
-  const cleaned = phone.replace(/[\s\-+()]/g, '');
-  return /^\d{10,15}$/.test(cleaned);
-}
-
-/**
- * Displays a validation error message.
- * @param {string} elementId - ID of the error display element
- * @param {string} message - Error message text
- * @param {string} [color='#ef4444'] - Optional text color
- */
-function showError(elementId, message, color = '#ef4444') {
-  const el = document.getElementById(elementId);
-  if (el) {
-    el.textContent = message;
-    el.style.color = color;
+    revealElements.forEach(function(el) {
+      observer.observe(el);
+    });
+  } else {
+    // fallback - show immediately if observer not supported
+    revealElements.forEach(function(el) {
+      el.classList.add('revealed');
+    });
   }
-}
 
-/**
- * Generates a unique booking ID.
- * Format: FW-YYYYMMDD-XXXX (e.g., FW-20240619-A3F1)
- * @returns {string}
- */
-function generateBookingId() {
-  // Generate random 4-digit number to yield BKXXXX format
-  const randomNum = Math.floor(1000 + Math.random() * 9000);
-  return `BK${randomNum}`;
-}
+  // 8. Achievements Section Stats Counters
+  const counters = document.querySelectorAll('.stat-number');
+  if (counters.length && 'IntersectionObserver' in window) {
+    const counterObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          startCounterAnimation(entry.target);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
 
-/**
- * Formats a date string (YYYY-MM-DD) into a readable format (e.g., 19 June 2024).
- * @param {string} dateStr - Date string in YYYY-MM-DD format
- * @returns {string}
- */
-function formatDate(dateStr) {
-  if (!dateStr) return '--';
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  return new Date(dateStr + 'T00:00:00').toLocaleDateString('en-IN', options);
-}
+    counters.forEach(function(counter) {
+      counterObserver.observe(counter);
+    });
+  }
 
-/* ============================================================
-   INITIALISATION – Run all modules on DOM ready
-   ============================================================ */
+  function startCounterAnimation(el) {
+    const target = parseInt(el.getAttribute('data-target'), 10);
+    const suffix = el.getAttribute('data-suffix') || '';
+    const duration = 1800; // Total duration in ms
+    const frameTime = 16; // Approx 60fps
+    const totalFrames = Math.round(duration / frameTime);
+    let currentFrame = 0;
 
-document.addEventListener('DOMContentLoaded', () => {
-  initPageLoader();
-  initThemeToggle();
-  initNavbar();
-  initBackToTop();
-  initScrollReveal();
-  initCounters();
-  initServiceFilter();
-  initBookingForm();
-  initPriceCalculator();
-  initNewsletter();
-  initFooterYear();
-  initSmoothScroll();
+    const interval = setInterval(function() {
+      currentFrame++;
+      const progress = currentFrame / totalFrames;
+      const easedProgress = 1 - Math.pow(1 - progress, 4); // easeOutQuart transition
+      const val = Math.round(target * easedProgress);
+      el.textContent = val + suffix;
+
+      if (currentFrame >= totalFrames) {
+        clearInterval(interval);
+        el.textContent = target + suffix;
+      }
+    }, frameTime);
+  }
+
+  // 9. Service Search and Filtering Options
+  const serviceSearch = document.getElementById('serviceSearch');
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const serviceItems = document.querySelectorAll('.service-item');
+  const noResults = document.getElementById('noServiceResults');
+
+  if (serviceSearch) {
+    let currentFilter = 'all';
+    let searchQuery = '';
+
+    serviceSearch.addEventListener('input', function() {
+      searchQuery = serviceSearch.value.trim().toLowerCase();
+      runFilter();
+    });
+
+    filterBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        filterBtns.forEach(function(b) { b.classList.remove('active'); });
+        btn.classList.add('active');
+        currentFilter = btn.getAttribute('data-filter');
+        runFilter();
+      });
+    });
+
+    function runFilter() {
+      let count = 0;
+      serviceItems.forEach(function(item) {
+        const category = item.getAttribute('data-category');
+        const title = item.querySelector('.service-title')?.textContent.toLowerCase() || '';
+        const desc = item.querySelector('.service-desc')?.textContent.toLowerCase() || '';
+
+        const catMatch = currentFilter === 'all' || category === currentFilter;
+        const searchMatch = !searchQuery || title.includes(searchQuery) || desc.includes(searchQuery);
+
+        if (catMatch && searchMatch) {
+          item.classList.remove('hidden');
+          count++;
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+
+      if (noResults) {
+        if (count === 0) {
+          noResults.classList.remove('d-none');
+        } else {
+          noResults.classList.add('d-none');
+        }
+      }
+    }
+  }
+
+  // 10. Price Calculator Logic
+  const calcService = document.getElementById('calcService');
+  const calcQty = document.getElementById('calcQty');
+  const qtyMinus = document.getElementById('qtyMinus');
+  const qtyPlus = document.getElementById('qtyPlus');
+
+  if (calcService && calcQty) {
+    qtyMinus.addEventListener('click', function() {
+      let qty = parseInt(calcQty.value, 10) || 1;
+      if (qty > 1) {
+        calcQty.value = qty - 1;
+        calculatePrice();
+      }
+    });
+
+    qtyPlus.addEventListener('click', function() {
+      let qty = parseInt(calcQty.value, 10) || 1;
+      if (qty < 100) {
+        calcQty.value = qty + 1;
+        calculatePrice();
+      }
+    });
+
+    calcQty.addEventListener('input', function() {
+      let qty = parseInt(calcQty.value, 10);
+      if (isNaN(qty) || qty < 1) qty = 1;
+      if (qty > 100) qty = 100;
+      calcQty.value = qty;
+      calculatePrice();
+    });
+
+    calcService.addEventListener('change', calculatePrice);
+
+    function calculatePrice() {
+      const price = parseInt(calcService.value, 10) || 0;
+      const qty = parseInt(calcQty.value, 10) || 1;
+      const subtotal = price * qty;
+      const gst = Math.round(subtotal * GST_RATE);
+      const total = subtotal + gst;
+
+      document.getElementById('priceRate').textContent = price ? `₹${price} /item` : '₹0 /item';
+      document.getElementById('priceQty').textContent = qty;
+      document.getElementById('priceSubtotal').textContent = `₹${subtotal}`;
+      document.getElementById('priceGst').textContent = `₹${gst}`;
+      document.getElementById('priceTotal').textContent = `₹${total}`;
+    }
+
+    // calculate initial values
+    calculatePrice();
+  }
+
+  // 11. Booking Cart System
+  const bookingForm = document.getElementById('bookingForm');
+  
+  if (bookingForm) {
+    // Set pickup date field's minimum value to today
+    const bookDateInput = document.getElementById('bookDate');
+    if (bookDateInput) {
+      const today = new Date().toISOString().split('T')[0];
+      bookDateInput.setAttribute('min', today);
+    }
+
+    // Add buttons listener for cart increment/decrement
+    document.querySelectorAll('.btn-add-item').forEach(function(button) {
+      button.addEventListener('click', function() {
+        const service = button.getAttribute('data-service');
+        const price = SERVICE_PRICES[service];
+        addToCart(service, price);
+      });
+    });
+
+    document.querySelectorAll('.btn-remove-item').forEach(function(button) {
+      button.addEventListener('click', function() {
+        const service = button.getAttribute('data-service');
+        removeFromCart(service);
+      });
+    });
+
+    // Add from direct services section buttons
+    document.querySelectorAll('.btn-add-direct').forEach(function(button) {
+      button.addEventListener('click', function() {
+        const service = button.getAttribute('data-service');
+        const price = SERVICE_PRICES[service];
+        addToCart(service, price);
+
+        // scroll down to booking section
+        const bookingSection = document.getElementById('booking');
+        if (bookingSection) {
+          const navbarHeight = document.getElementById('mainNavbar')?.offsetHeight || 76;
+          const offsetTop = bookingSection.getBoundingClientRect().top + window.scrollY - navbarHeight;
+          window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+        }
+      });
+    });
+
+    function addToCart(service, price) {
+      const item = cart.find(function(i) { return i.name === service; });
+      if (item) {
+        item.quantity += 1;
+      } else {
+        cart.push({ name: service, price: price, quantity: 1 });
+      }
+      updateCartUI();
+    }
+
+    function removeFromCart(service) {
+      const index = cart.findIndex(function(i) { return i.name === service; });
+      if (index > -1) {
+        cart[index].quantity -= 1;
+        if (cart[index].quantity <= 0) {
+          cart.splice(index, 1);
+        }
+      }
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      let total = 0;
+
+      // Reset quantities shown in list badges
+      document.querySelectorAll('.qty-display').forEach(function(badge) {
+        badge.textContent = '0';
+      });
+
+      // Update badge displays and calculate subtotal
+      cart.forEach(function(item) {
+        const idFormatted = item.name.replace(/ & /g, '-').replace(/ /g, '-').replace(/amp;/g, '');
+        const badgeEl = document.getElementById('qty-' + idFormatted);
+        if (badgeEl) {
+          badgeEl.textContent = item.quantity;
+        }
+        total += item.price * item.quantity;
+      });
+
+      // Update total price element
+      document.getElementById('cartTotalPrice').textContent = `₹${total}`;
+
+      // Update cart list UI
+      const emptyState = document.getElementById('cartEmptyState');
+      const itemsList = document.getElementById('cartItemsList');
+      const cartErr = document.getElementById('cartGeneralErr');
+
+      if (cart.length === 0) {
+        emptyState?.classList.remove('d-none');
+        itemsList?.classList.add('d-none');
+        if (itemsList) itemsList.innerHTML = '';
+      } else {
+        emptyState?.classList.add('d-none');
+        itemsList?.classList.remove('d-none');
+        if (itemsList) {
+          itemsList.innerHTML = cart.map(function(item) {
+            return `<li class="list-group-item d-flex justify-content-between align-items-center text-dark bg-transparent border-bottom px-0 py-2">
+              <div>
+                <strong>${item.name}</strong> <small class="text-muted">(₹${item.price} each)</small>
+              </div>
+              <span class="badge bg-primary rounded-pill px-3 py-2">x${item.quantity} - ₹${item.price * item.quantity}</span>
+            </li>`;
+          }).join('');
+        }
+        if (cartErr) cartErr.textContent = '';
+      }
+    }
+
+    // 12. Form Submission & Validation flow
+    bookingForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Reset error styles
+      clearErrors();
+
+      let isValid = true;
+      let firstInvalidInput = null;
+
+      // 12a. Validate cart size
+      if (cart.length === 0) {
+        showError('cartGeneralErr', 'Please add at least one laundry service to your cart.');
+        isValid = false;
+      }
+
+      // 12b. Validate Name
+      const nameInput = document.getElementById('bookName');
+      const nameVal = nameInput.value.trim();
+      if (!nameVal) {
+        showFieldError(nameInput, 'bookNameErr', 'Full name is required.');
+        isValid = false;
+        if (!firstInvalidInput) firstInvalidInput = nameInput;
+      } else if (nameVal.length < 2) {
+        showFieldError(nameInput, 'bookNameErr', 'Name must be at least 2 characters.');
+        isValid = false;
+        if (!firstInvalidInput) firstInvalidInput = nameInput;
+      }
+
+      // 12c. Validate Email
+      const emailInput = document.getElementById('bookEmail');
+      const emailVal = emailInput.value.trim();
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailVal) {
+        showFieldError(emailInput, 'bookEmailErr', 'Email address is required.');
+        isValid = false;
+        if (!firstInvalidInput) firstInvalidInput = emailInput;
+      } else if (!emailPattern.test(emailVal)) {
+        showFieldError(emailInput, 'bookEmailErr', 'Please enter a valid email address.');
+        isValid = false;
+        if (!firstInvalidInput) firstInvalidInput = emailInput;
+      }
+
+      // 12d. Validate Phone
+      const phoneInput = document.getElementById('bookPhone');
+      const phoneVal = phoneInput.value.trim().replace(/[\s\-+()]/g, '');
+      const phonePattern = /^\d{10,15}$/;
+      if (!phoneVal) {
+        showFieldError(phoneInput, 'bookPhoneErr', 'Phone number is required.');
+        isValid = false;
+        if (!firstInvalidInput) firstInvalidInput = phoneInput;
+      } else if (!phonePattern.test(phoneVal)) {
+        showFieldError(phoneInput, 'bookPhoneErr', 'Enter a valid phone number (10 to 15 digits).');
+        isValid = false;
+        if (!firstInvalidInput) firstInvalidInput = phoneInput;
+      }
+
+      // 12e. Validate Pickup Date (Required validation check)
+      const dateInput = document.getElementById('bookDate');
+      const dateVal = dateInput.value;
+      if (!dateVal) {
+        showFieldError(dateInput, 'bookDateErr', 'Pickup date is required.');
+        isValid = false;
+        if (!firstInvalidInput) firstInvalidInput = dateInput;
+      } else {
+        const selectedDate = new Date(dateVal);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        if (selectedDate < today) {
+          showFieldError(dateInput, 'bookDateErr', 'Pickup date cannot be in the past.');
+          isValid = false;
+          if (!firstInvalidInput) firstInvalidInput = dateInput;
+        }
+      }
+
+      // 12f. Validate Address
+      const addressInput = document.getElementById('bookAddress');
+      const addressVal = addressInput.value.trim();
+      if (!addressVal) {
+        showFieldError(addressInput, 'bookAddressErr', 'Pickup address is required.');
+        isValid = false;
+        if (!firstInvalidInput) firstInvalidInput = addressInput;
+      } else if (addressVal.length < 10) {
+        showFieldError(addressInput, 'bookAddressErr', 'Please provide a complete address (minimum 10 characters).');
+        isValid = false;
+        if (!firstInvalidInput) firstInvalidInput = addressInput;
+      }
+
+      // Set focus to the first invalid element if any
+      if (!isValid && firstInvalidInput) {
+        firstInvalidInput.focus();
+      }
+
+      if (isValid) {
+        submitBookingForm();
+      }
+    });
+
+    // Reset validation errors dynamically as the user types/changes inputs
+    const inputsToWatch = ['bookName', 'bookEmail', 'bookPhone', 'bookDate', 'bookAddress'];
+    inputsToWatch.forEach(function(id) {
+      const input = document.getElementById(id);
+      if (input) {
+        const eventType = (input.tagName === 'SELECT' || input.type === 'date' || input.type === 'checkbox') ? 'change' : 'input';
+        input.addEventListener(eventType, function() {
+          input.classList.remove('is-invalid');
+          const errDiv = document.getElementById(id + 'Err');
+          if (errDiv) errDiv.textContent = '';
+        });
+      }
+    });
+
+    function showFieldError(inputEl, errId, message) {
+      inputEl.classList.add('is-invalid');
+      const errDiv = document.getElementById(errId);
+      if (errDiv) {
+        errDiv.textContent = message;
+        errDiv.style.color = '#ef4444';
+      }
+    }
+
+    function showError(errId, message) {
+      const errDiv = document.getElementById(errId);
+      if (errDiv) {
+        errDiv.textContent = message;
+        errDiv.style.color = '#ef4444';
+      }
+    }
+
+    function clearErrors() {
+      document.querySelectorAll('.custom-input').forEach(function(input) {
+        input.classList.remove('is-invalid');
+      });
+      document.querySelectorAll('.invalid-feedback-custom').forEach(function(div) {
+        div.textContent = '';
+      });
+      const cartErr = document.getElementById('cartGeneralErr');
+      if (cartErr) cartErr.textContent = '';
+    }
+
+    function submitBookingForm() {
+      const bookingId = 'BK' + Math.floor(1000 + Math.random() * 9000);
+      const totalAmount = cart.reduce(function(sum, item) { return sum + (item.price * item.quantity); }, 0);
+      
+      const bookingData = {
+        id: bookingId,
+        name: document.getElementById('bookName').value.trim(),
+        email: document.getElementById('bookEmail').value.trim(),
+        phone: document.getElementById('bookPhone').value.trim(),
+        date: document.getElementById('bookDate').value,
+        address: document.getElementById('bookAddress').value.trim(),
+        instructions: document.getElementById('bookInstructions').value.trim(),
+        cart: [...cart],
+        total: totalAmount,
+        timestamp: new Date().toISOString()
+      };
+
+      const servicesText = cart.map(function(item) {
+        return `${item.name} (x${item.quantity}) - ₹${item.price * item.quantity}`;
+      }).join('\n');
+
+      const templateParams = {
+        booking_id: bookingId,
+        customer_name: bookingData.name,
+        customer_email: bookingData.email,
+        customer_phone: bookingData.phone,
+        selected_services: servicesText,
+        total_price: `₹${totalAmount}`,
+        pickup_date: formatDateString(bookingData.date),
+        delivery_address: bookingData.address,
+        special_instructions: bookingData.instructions || 'None'
+      };
+
+      const feedbackEl = document.getElementById('bookingGeneralErr');
+      if (feedbackEl) {
+        feedbackEl.innerHTML = '<span class="text-info"><i class="fas fa-spinner fa-spin me-2"></i>Processing your booking & sending email...</span>';
+      }
+
+      // Check if EmailJS is loaded and active
+      if (typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY !== "YOUR_PUBLIC_KEY") {
+        emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams)
+          .then(function(response) {
+            console.log('SUCCESS!', response.status, response.text);
+            if (feedbackEl) feedbackEl.innerHTML = '';
+            finalizeBooking(bookingData);
+          }, function(error) {
+            console.error('EmailJS FAILED...', error);
+            if (feedbackEl) {
+              feedbackEl.innerHTML = `<span class="text-danger d-block my-2"><i class="fas fa-exclamation-triangle me-1"></i>EmailJS failed to deliver: ${error.text || error.status}. Please check your credentials config.</span>`;
+            }
+            // Execute fallback local confirmation card so submission is still functional
+            finalizeBooking(bookingData);
+          });
+      } else {
+        // Fallback for placeholder state (simulates local booking success)
+        console.warn('EmailJS SDK not loaded or using placeholders. Booking completed locally.');
+        if (feedbackEl) {
+          feedbackEl.innerHTML = '<span class="text-warning d-block my-2"><i class="fas fa-info-circle me-1"></i>EmailJS keys not configured. Local simulation success.</span>';
+        }
+        finalizeBooking(bookingData);
+      }
+    }
+
+    function finalizeBooking(data) {
+      // save record to localStorage
+      const savedBookings = JSON.parse(localStorage.getItem('freshwave_bookings') || '[]');
+      savedBookings.push(data);
+      localStorage.setItem('freshwave_bookings', JSON.stringify(savedBookings));
+
+      // show confirmation details card
+      showConfirmation(data);
+
+      // reset booking form and cart variables
+      bookingForm.reset();
+      cart = [];
+      updateCartUI();
+    }
+
+    function showConfirmation(data) {
+      const card = document.getElementById('confirmationCard');
+      if (!card) return;
+
+      document.getElementById('confirmBookingId').textContent = data.id;
+      document.getElementById('confirmName').textContent = data.name;
+      document.getElementById('confirmEmailAddress').textContent = data.email;
+      document.getElementById('confirmPhone').textContent = data.phone;
+      document.getElementById('confirmDate').textContent = formatDateString(data.date);
+      document.getElementById('confirmTotal').textContent = `₹${data.total}`;
+
+      const servicesListEl = document.getElementById('confirmServicesList');
+      if (servicesListEl) {
+        servicesListEl.innerHTML = data.cart.map(function(item) {
+          return `<div class="d-flex justify-content-between border-bottom py-1">
+            <span>${item.name} x ${item.quantity}</span>
+            <span>₹${item.price * item.quantity}</span>
+          </div>`;
+        }).join('');
+      }
+
+      card.classList.remove('d-none');
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function formatDateString(dateStr) {
+      if (!dateStr) return '--';
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(dateStr + 'T00:00:00').toLocaleDateString('en-IN', options);
+    }
+  }
+
+  // 13. Newsletter Form submission
+  const newsletterForm = document.getElementById('newsletterForm');
+  if (newsletterForm) {
+    newsletterForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const emailInput = document.getElementById('newsletterEmail');
+      const errorEl = document.getElementById('newsletterEmailErr');
+      const successEl = document.getElementById('newsletterSuccess');
+      const submitBtn = document.getElementById('newsletterBtn');
+
+      if (errorEl) errorEl.textContent = '';
+      successEl?.classList.add('d-none');
+
+      const emailVal = emailInput.value.trim();
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!emailVal) {
+        if (errorEl) errorEl.textContent = 'Please enter your email address.';
+        return;
+      }
+      if (!emailPattern.test(emailVal)) {
+        if (errorEl) errorEl.textContent = 'Please enter a valid email address.';
+        return;
+      }
+
+      // save to subscriber list in localStorage
+      const subscribers = JSON.parse(localStorage.getItem('freshwave_subscribers') || '[]');
+      if (subscribers.includes(emailVal)) {
+        if (errorEl) errorEl.textContent = 'This email is already subscribed!';
+        return;
+      }
+
+      subscribers.push(emailVal);
+      localStorage.setItem('freshwave_subscribers', JSON.stringify(subscribers));
+
+      emailInput.value = '';
+      successEl?.classList.remove('d-none');
+      if (submitBtn) {
+        submitBtn.innerHTML = '<i class="fas fa-check me-2"></i>Subscribed!';
+        submitBtn.disabled = true;
+        setTimeout(function() {
+          submitBtn.innerHTML = '<i class="fas fa-paper-plane me-2"></i>Subscribe';
+          submitBtn.disabled = false;
+        }, 3000);
+      }
+    });
+  }
+
 });

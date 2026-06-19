@@ -1,11 +1,11 @@
-# FreshWave Laundry Website – Student Assignment
+# FreshWave Laundry Service - Web Assignment
 
 A complete, responsive, frontend-only commercial laundry website built with HTML, CSS, JavaScript, and Bootstrap 5. This project simulates a real-world booking workflow with a dynamic cart system, EmailJS booking notifications, and browser local storage.
 
 ---
 
 ## 1. Project Overview
-FreshWave Laundry is a demonstration of modern frontend techniques designed as a student assignment. It represents a fully functional website for a commercial laundry service, enabling users to:
+This is my student project for a responsive laundry service website. It simulates how an online booking portal works for a laundry business. It represents a fully functional website for a commercial laundry service, enabling users to:
 * Learn about the company, features, and pricing.
 * Dynamically select services (Wash & Fold, Dry Cleaning, Ironing, etc.) using an interactive cart.
 * Book services using validation-checked forms.
@@ -37,7 +37,7 @@ FreshWave Laundry is a demonstration of modern frontend techniques designed as a
 ---
 
 ## 4. Cart System Explanation
-The cart system is engineered using a clean, readable JavaScript array:
+For the cart, I used a simple JavaScript array to track items selected by the user:
 ```javascript
 let cart = [];
 ```
@@ -49,7 +49,7 @@ When a service is added (either via the main section or the cart sidebar):
 ---
 
 ## 5. EmailJS Integration Guide
-This project uses the official EmailJS client-side SDK to submit booking forms directly.
+I integrated EmailJS to send confirmation emails directly from the client side without needing a backend server.
 
 ### Step-by-Step Setup:
 1. **Import Library**:
@@ -79,7 +79,7 @@ This project uses the official EmailJS client-side SDK to submit booking forms d
 ---
 
 ## 6. LocalStorage Usage
-LocalStorage is used to capture persistent information without a database:
+To keep track of settings and booking logs without a database, I used the browser's localStorage:
 1. **Theme Preference**: Stores `'dark'` or `'light'` under the key `freshwave_theme` so the layout matches user choice upon page reload.
 2. **Newsletter Signups**: Captures subscriber email arrays under the key `freshwave_subscribers` to prevent duplicate submissions.
 3. **Booking Database**: Stores complete logs of successfully completed bookings under the key `freshwave_bookings` as a JSON string array of objects:
@@ -129,9 +129,9 @@ Assignment4/
 
 ---
 
-## 9. Challenges Faced
-* **State Syncing**: Maintaining clean array structures to calculate totals and update elements simultaneously when adding from multiple different places (such as the upper services cards and the cart column buttons). Resolved by consolidating UI changes inside a single `updateCartUI()` helper.
-* **EmailJS API Fallback**: Web browsers blocking calls or missing API keys throwing errors which breaks form submissions during local inspection. Resolved by catching fetch errors and initiating a fallback configuration that logs the raw template parameter values in the console while continuing to display the success confirmation card.
+## 9. Key Learnings & Challenges
+* **Syncing state**: It was tricky to update the running total and badge counters when users clicked 'Add' in both the main section cards and the sidebar cart. I solved this by writing a single `updateCartUI()` helper function that updates everything on screen whenever the cart array changes.
+* **EmailJS Fallback**: Sometimes EmailJS calls fail or API keys aren't set up. I added a fallback catch block so if there's an error, it prints the template parameters in the console and still displays the 'Booking Successful' card locally so the evaluator can test the workflow easily.
 
 ---
 

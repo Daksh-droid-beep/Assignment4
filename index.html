@@ -24,7 +24,7 @@
 
 <body>
 
-  <!-- ========== LOADER ========== -->
+  <!-- Loader -->
   <div id="pageLoader" class="page-loader">
     <div class="loader-content">
       <div class="loader-spinner"></div>
@@ -32,32 +32,32 @@
     </div>
   </div>
 
-  <!-- ========== BACK TO TOP ========== -->
+  <!-- Back To Top -->
   <button id="backToTop" class="back-to-top" aria-label="Back to top">
     <i class="fas fa-chevron-up"></i>
   </button>
 
-  <!-- ========== DARK/LIGHT MODE TOGGLE ========== -->
+  <!-- Dark/Light Mode Toggle -->
   <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle theme">
     <i class="fas fa-moon" id="themeIcon"></i>
   </button>
 
-  <!-- ========== NAVBAR ========== -->
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
     <div class="container">
-      <!-- Logo -->
+      <!-- Logo branding -->
       <a class="navbar-brand d-flex align-items-center gap-2" href="#home">
         <span class="brand-icon"><i class="fas fa-soap"></i></span>
         <span class="brand-name">Fresh<span class="brand-accent">Wave</span></span>
       </a>
 
-      <!-- Mobile Toggle -->
+      <!-- Navigation menu toggle for mobile screen -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
         aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
         <span class="toggler-icon"><i class="fas fa-bars"></i></span>
       </button>
 
-      <!-- Nav Links -->
+      <!-- Navbar list items -->
       <div class="collapse navbar-collapse" id="navMenu">
         <ul class="navbar-nav ms-auto align-items-center gap-1">
           <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
@@ -72,7 +72,7 @@
     </div>
   </nav>
 
-  <!-- ========== HERO SECTION ========== -->
+  <!-- Hero Section -->
   <section id="home" class="hero-section">
     <div class="hero-bg-shapes">
       <div class="shape shape-1"></div>
@@ -81,7 +81,7 @@
     </div>
     <div class="container">
       <div class="row align-items-center min-vh-100 py-5">
-        <!-- Left Text -->
+        <!-- Hero copy and buttons -->
         <div class="col-lg-6 hero-text" data-reveal="left">
           <div class="hero-badge mb-3">
             <i class="fas fa-star me-1"></i> Trusted by 240+ Happy Customers
@@ -112,14 +112,14 @@
           </div>
         </div>
 
-        <!-- Right Illustration -->
+        <!-- Hero graphic column -->
         <div class="col-lg-6 hero-image-col text-center mt-5 mt-lg-0" data-reveal="right">
           <div class="hero-image-wrapper">
             <div class="hero-blob"></div>
             <img
               src="https://img.freepik.com/free-vector/laundry-service-concept-illustration_114360-9531.jpg"
               alt="Laundry Service Illustration" class="hero-img img-fluid" />
-            <!-- Floating badges -->
+            <!-- Overlay floating features -->
             <div class="float-badge badge-top-right">
               <i class="fas fa-check-circle me-1"></i> 100% Satisfaction
             </div>
@@ -130,7 +130,7 @@
         </div>
       </div>
     </div>
-    <!-- Scroll indicator -->
+    <!-- Scroll down mouse prompt -->
     <div class="scroll-indicator">
       <div class="scroll-mouse">
         <div class="scroll-wheel"></div>
@@ -139,7 +139,7 @@
     </div>
   </section>
 
-  <!-- ========== ACHIEVEMENTS / STATS SECTION ========== -->
+  <!-- Achievements / Stats Section -->
   <section id="achievements" class="stats-section section-padding">
     <div class="container">
       <div class="row g-4 justify-content-center">
@@ -175,17 +175,17 @@
     </div>
   </section>
 
-  <!-- ========== SERVICES SECTION ========== -->
+  <!-- Services Section -->
   <section id="services" class="services-section section-padding">
     <div class="container">
-      <!-- Section Header -->
+      <!-- Header of the section -->
       <div class="section-header text-center mb-5" data-reveal="up">
         <span class="section-badge">What We Offer</span>
         <h2 class="section-title">Our <span class="gradient-text">Premium Services</span></h2>
         <p class="section-subtitle">From everyday washing to specialty care — we handle it all with precision and care.</p>
       </div>
 
-      <!-- Search / Filter -->
+      <!-- Search field and category tabs -->
       <div class="service-filter mb-4" data-reveal="up">
         <div class="row justify-content-center">
           <div class="col-md-6">
@@ -204,7 +204,7 @@
         </div>
       </div>
 
-      <!-- Service Cards -->
+      <!-- Grid of service cards -->
       <div class="row g-4" id="serviceCards">
         <!-- Dry Cleaning -->
         <div class="col-sm-6 col-lg-4 service-item" data-category="cleaning" data-reveal="up">
@@ -280,7 +280,7 @@
         </div>
       </div>
 
-      <!-- No Results -->
+      <!-- Empty state for no filter results -->
       <div id="noServiceResults" class="text-center py-4 d-none">
         <i class="fas fa-search fa-2x mb-2 text-muted"></i>
         <p class="text-muted">No services found. Try a different search term.</p>
@@ -288,11 +288,11 @@
     </div>
   </section>
 
-  <!-- ========== QUALITY DESCRIPTION SECTION ========== -->
+  <!-- Quality Description Section -->
   <section id="quality" class="quality-section section-padding">
     <div class="container">
       <div class="row align-items-center g-5">
-        <!-- Left Image -->
+        <!-- Choice highlight banner -->
         <div class="col-lg-5" data-reveal="left">
           <div class="quality-image-wrap">
             <img src="https://img.freepik.com/free-vector/laundry-room-interior-concept_23-2148519099.jpg"
@@ -302,7 +302,7 @@
             </div>
           </div>
         </div>
-        <!-- Right Content -->
+        <!-- Accordion list / checkmark points -->
         <div class="col-lg-7" data-reveal="right">
           <span class="section-badge">Why Choose Us</span>
           <h2 class="section-title mt-2">Premium Quality, <span class="gradient-text">Every Time</span></h2>
@@ -350,9 +350,18 @@
     </div>
   </section>
 
+  <!-- Booking Section -->
+  <section id="booking" class="booking-section section-padding">
+    <div class="container">
+      <div class="section-header text-center mb-5" data-reveal="up">
+        <span class="section-badge">Booking</span>
+        <h2 class="section-title">Book a <span class="gradient-text">Service</span></h2>
+        <p class="section-subtitle">Select services to add to your cart, fill in your details, and confirm your booking below.</p>
+      </div>
+
       <!-- TWO-COLUMN BOOKING LAYOUT -->
       <div class="row g-4 justify-content-center">
-        <!-- LEFT SIDE: Service Cart Selection -->
+        <!-- Cart selection column -->
         <div class="col-lg-6" data-reveal="left">
           <div class="booking-card h-100">
             <h4 class="mb-4"><i class="fas fa-shopping-cart me-2"></i>Service Selection Cart</h4>
@@ -443,7 +452,7 @@
           </div>
         </div>
 
-        <!-- RIGHT SIDE: Booking Form -->
+        <!-- Booking form column -->
         <div class="col-lg-6" data-reveal="right">
           <div class="booking-card h-100">
             <h4 class="mb-4"><i class="fas fa-address-card me-2"></i>Booking Details Form</h4>
@@ -454,7 +463,7 @@
                   <label for="bookName" class="form-label">Full Name <span class="required">*</span></label>
                   <div class="input-group-custom">
                     <i class="fas fa-user"></i>
-                    <input type="text" class="form-control custom-input" id="bookName" placeholder="John Doe" required />
+                    <input type="text" class="form-control custom-input" id="bookName" name="name" placeholder="John Doe" required />
                   </div>
                   <div class="invalid-feedback-custom" id="bookNameErr"></div>
                 </div>
@@ -463,7 +472,7 @@
                   <label for="bookEmail" class="form-label">Email Address <span class="required">*</span></label>
                   <div class="input-group-custom">
                     <i class="fas fa-envelope"></i>
-                    <input type="email" class="form-control custom-input" id="bookEmail" placeholder="john@example.com" required />
+                    <input type="email" class="form-control custom-input" id="bookEmail" name="email" placeholder="john@example.com" required />
                   </div>
                   <div class="invalid-feedback-custom" id="bookEmailErr"></div>
                 </div>
@@ -472,7 +481,7 @@
                   <label for="bookPhone" class="form-label">Phone Number <span class="required">*</span></label>
                   <div class="input-group-custom">
                     <i class="fas fa-phone"></i>
-                    <input type="tel" class="form-control custom-input" id="bookPhone" placeholder="9876543210" required />
+                    <input type="tel" class="form-control custom-input" id="bookPhone" name="phone" placeholder="9876543210" required />
                   </div>
                   <div class="invalid-feedback-custom" id="bookPhoneErr"></div>
                 </div>
@@ -481,7 +490,7 @@
                   <label for="bookDate" class="form-label">Pickup Date <span class="required">*</span></label>
                   <div class="input-group-custom">
                     <i class="fas fa-calendar-alt"></i>
-                    <input type="date" class="form-control custom-input" id="bookDate" required />
+                    <input type="date" class="form-control custom-input" id="bookDate" name="date" required />
                   </div>
                   <div class="invalid-feedback-custom" id="bookDateErr"></div>
                 </div>
@@ -490,14 +499,14 @@
                   <label for="bookAddress" class="form-label">Pickup Address <span class="required">*</span></label>
                   <div class="input-group-custom">
                     <i class="fas fa-map-marker-alt"></i>
-                    <input type="text" class="form-control custom-input" id="bookAddress" placeholder="123, Main Street, Area" required />
+                    <input type="text" class="form-control custom-input" id="bookAddress" name="address" placeholder="123, Main Street, Area" required />
                   </div>
                   <div class="invalid-feedback-custom" id="bookAddressErr"></div>
                 </div>
                 <!-- Special Instructions -->
                 <div class="col-12">
                   <label for="bookInstructions" class="form-label">Special Instructions</label>
-                  <textarea class="form-control custom-input" id="bookInstructions" rows="3"
+                  <textarea class="form-control custom-input" id="bookInstructions" name="instructions" rows="3"
                     placeholder="Any special care instructions, fabric notes, etc."></textarea>
                 </div>
                 <!-- EmailJS Status Feedback -->
@@ -514,7 +523,7 @@
         </div>
       </div>
 
-      <!-- ===== EMAIL CONFIRMATION CARD ===== -->
+      <!-- Email Confirmation Card -->
       <div class="row justify-content-center mt-4">
         <div class="col-lg-12">
           <div id="confirmationCard" class="confirmation-card d-none" role="alert" aria-live="polite">
@@ -559,10 +568,8 @@
       </div>
     </div>
   </section>
-    </div>
-  </section>
 
-  <!-- ========== PRICE CALCULATOR ========== -->
+  <!-- Price Calculator -->
   <section id="calculator" class="calculator-section section-padding">
     <div class="container">
       <div class="section-header text-center mb-5" data-reveal="up">
@@ -636,7 +643,7 @@
     </div>
   </section>
 
-  <!-- ========== TESTIMONIALS ========== -->
+  <!-- Testimonials -->
   <section id="testimonials" class="testimonials-section section-padding">
     <div class="container">
       <div class="section-header text-center mb-5" data-reveal="up">
@@ -700,7 +707,7 @@
     </div>
   </section>
 
-  <!-- ========== ABOUT US ========== -->
+  <!-- About Us -->
   <section id="about" class="about-section section-padding">
     <div class="container">
       <div class="row align-items-center g-5">
@@ -742,7 +749,7 @@
     </div>
   </section>
 
-  <!-- ========== FAQ SECTION ========== -->
+  <!-- Faq Section -->
   <section id="faq" class="faq-section section-padding">
     <div class="container">
       <div class="section-header text-center mb-5" data-reveal="up">
@@ -829,7 +836,7 @@
     </div>
   </section>
 
-  <!-- ========== NEWSLETTER ========== -->
+  <!-- Newsletter -->
   <section id="newsletter" class="newsletter-section section-padding">
     <div class="container">
       <div class="newsletter-card" data-reveal="up">
@@ -859,7 +866,7 @@
     </div>
   </section>
 
-  <!-- ========== CONTACT US ========== -->
+  <!-- Contact Us -->
   <section id="contact" class="contact-section section-padding">
     <div class="container">
       <div class="section-header text-center mb-5" data-reveal="up">
@@ -893,7 +900,7 @@
     </div>
   </section>
 
-  <!-- ========== FOOTER ========== -->
+  <!-- Footer -->
   <footer class="site-footer">
     <div class="container">
       <div class="row g-4 py-5">
