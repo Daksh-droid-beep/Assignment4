@@ -1053,6 +1053,51 @@ select.custom-input option {
   min-height: 16px;
 }
 
+/* Cart & Selection List Styling */
+.services-selection-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.selection-item {
+  transition: all var(--transition-fast);
+}
+
+.selection-item:hover {
+  border-color: var(--primary) !important;
+  box-shadow: var(--shadow-sm);
+}
+
+.qty-display {
+  min-width: 40px;
+  font-weight: 700;
+  background-color: var(--primary) !important;
+  color: white !important;
+}
+
+.cart-summary {
+  margin-top: 15px;
+}
+
+.cart-summary ul {
+  padding-left: 0;
+}
+
+.cart-summary .list-group-item {
+  background: transparent;
+  border-color: var(--border-color);
+  padding: 10px 0;
+  font-size: 0.9rem;
+}
+
+.btn-qty-change {
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  padding: 4px 10px;
+  font-size: 0.8rem;
+}
+
 /* Confirmation Card */
 .confirmation-card {
   background: var(--bg-card);

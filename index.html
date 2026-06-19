@@ -17,6 +17,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
   <!-- Custom CSS -->
   <link rel="stylesheet" href="style.css" />
+  
+  <!-- EmailJS Library -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 
 <body>
@@ -211,8 +214,8 @@
             </div>
             <h4 class="service-title">Dry Cleaning</h4>
             <p class="service-desc">Professional dry cleaning for delicate fabrics, suits, dresses, and more. Chemical-free solvents ensure fabric safety.</p>
-            <div class="service-price">₹50 <span>/item</span></div>
-            <a href="#booking" class="service-btn">Book Now <i class="fas fa-arrow-right ms-1"></i></a>
+            <div class="service-price">₹150 <span>/item</span></div>
+            <button type="button" class="service-btn btn-add-direct" data-service="Dry Cleaning">Add to Cart <i class="fas fa-cart-plus ms-1"></i></button>
           </div>
         </div>
         <!-- Wash & Fold -->
@@ -223,8 +226,8 @@
             </div>
             <h4 class="service-title">Wash &amp; Fold</h4>
             <p class="service-desc">Hassle-free laundry service. We wash, dry, and neatly fold your clothes using premium detergents and softeners.</p>
-            <div class="service-price">₹30 <span>/item</span></div>
-            <a href="#booking" class="service-btn">Book Now <i class="fas fa-arrow-right ms-1"></i></a>
+            <div class="service-price">₹100 <span>/item</span></div>
+            <button type="button" class="service-btn btn-add-direct" data-service="Wash &amp; Fold">Add to Cart <i class="fas fa-cart-plus ms-1"></i></button>
           </div>
         </div>
         <!-- Ironing -->
@@ -235,8 +238,8 @@
             </div>
             <h4 class="service-title">Ironing</h4>
             <p class="service-desc">Crisp, wrinkle-free clothes every time. Our professional ironing service gives your garments a fresh, sharp look.</p>
-            <div class="service-price">₹20 <span>/item</span></div>
-            <a href="#booking" class="service-btn">Book Now <i class="fas fa-arrow-right ms-1"></i></a>
+            <div class="service-price">₹80 <span>/item</span></div>
+            <button type="button" class="service-btn btn-add-direct" data-service="Ironing">Add to Cart <i class="fas fa-cart-plus ms-1"></i></button>
           </div>
         </div>
         <!-- Premium Laundry -->
@@ -247,8 +250,8 @@
             </div>
             <h4 class="service-title">Premium Laundry</h4>
             <p class="service-desc">Luxury fabric care for high-end garments. Hand-finished, individually packed, with premium eco-friendly products.</p>
-            <div class="service-price">₹70 <span>/item</span></div>
-            <a href="#booking" class="service-btn">Book Now <i class="fas fa-arrow-right ms-1"></i></a>
+            <div class="service-price">₹200 <span>/item</span></div>
+            <button type="button" class="service-btn btn-add-direct" data-service="Premium Laundry">Add to Cart <i class="fas fa-cart-plus ms-1"></i></button>
           </div>
         </div>
         <!-- Stain Removal -->
@@ -259,8 +262,8 @@
             </div>
             <h4 class="service-title">Stain Removal</h4>
             <p class="service-desc">Stubborn stain? No problem. Our specialists use advanced stain-fighting techniques on all fabric types.</p>
-            <div class="service-price">₹40 <span>/item</span></div>
-            <a href="#booking" class="service-btn">Book Now <i class="fas fa-arrow-right ms-1"></i></a>
+            <div class="service-price">₹120 <span>/item</span></div>
+            <button type="button" class="service-btn btn-add-direct" data-service="Stain Removal">Add to Cart <i class="fas fa-cart-plus ms-1"></i></button>
           </div>
         </div>
         <!-- Express Service -->
@@ -271,8 +274,8 @@
             </div>
             <h4 class="service-title">Express Service</h4>
             <p class="service-desc">Need it fast? Our same-day express service guarantees turnaround within hours, perfect for urgent occasions.</p>
-            <div class="service-price">₹80 <span>/item</span></div>
-            <a href="#booking" class="service-btn">Book Now <i class="fas fa-arrow-right ms-1"></i></a>
+            <div class="service-price">₹250 <span>/item</span></div>
+            <button type="button" class="service-btn btn-add-direct" data-service="Express Service">Add to Cart <i class="fas fa-cart-plus ms-1"></i></button>
           </div>
         </div>
       </div>
@@ -347,22 +350,107 @@
     </div>
   </section>
 
-  <!-- ========== BOOK NOW FORM ========== -->
-  <section id="booking" class="booking-section section-padding">
-    <div class="container">
-      <div class="section-header text-center mb-5" data-reveal="up">
-        <span class="section-badge">Easy Booking</span>
-        <h2 class="section-title">Book a <span class="gradient-text">Service Today</span></h2>
-        <p class="section-subtitle">Fill in the form below and we'll get your laundry picked up in no time.</p>
-      </div>
+      <!-- TWO-COLUMN BOOKING LAYOUT -->
+      <div class="row g-4 justify-content-center">
+        <!-- LEFT SIDE: Service Cart Selection -->
+        <div class="col-lg-6" data-reveal="left">
+          <div class="booking-card h-100">
+            <h4 class="mb-4"><i class="fas fa-shopping-cart me-2"></i>Service Selection Cart</h4>
+            
+            <!-- Available Services Selection List -->
+            <div class="services-selection-list mb-4">
+              <!-- Wash & Fold -->
+              <div class="selection-item d-flex align-items-center justify-content-between p-3 mb-2 rounded bg-light border text-dark">
+                <div>
+                  <h6 class="mb-0 fw-bold">Wash &amp; Fold</h6>
+                  <span class="text-primary fw-bold">₹100</span>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                  <button type="button" class="btn btn-sm btn-outline-danger btn-qty-change btn-remove-item" data-service="Wash &amp; Fold">Remove</button>
+                  <span class="badge bg-secondary px-3 py-2 fs-6 qty-display" id="qty-Wash-Fold">0</span>
+                  <button type="button" class="btn btn-sm btn-outline-success btn-qty-change btn-add-item" data-service="Wash &amp; Fold">Add</button>
+                </div>
+              </div>
 
-      <div class="row justify-content-center">
-        <div class="col-lg-8">
-          <div class="booking-card" data-reveal="up">
+              <!-- Dry Cleaning -->
+              <div class="selection-item d-flex align-items-center justify-content-between p-3 mb-2 rounded bg-light border text-dark">
+                <div>
+                  <h6 class="mb-0 fw-bold">Dry Cleaning</h6>
+                  <span class="text-primary fw-bold">₹150</span>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                  <button type="button" class="btn btn-sm btn-outline-danger btn-qty-change btn-remove-item" data-service="Dry Cleaning">Remove</button>
+                  <span class="badge bg-secondary px-3 py-2 fs-6 qty-display" id="qty-Dry-Cleaning">0</span>
+                  <button type="button" class="btn btn-sm btn-outline-success btn-qty-change btn-add-item" data-service="Dry Cleaning">Add</button>
+                </div>
+              </div>
+
+              <!-- Ironing -->
+              <div class="selection-item d-flex align-items-center justify-content-between p-3 mb-2 rounded bg-light border text-dark">
+                <div>
+                  <h6 class="mb-0 fw-bold">Ironing</h6>
+                  <span class="text-primary fw-bold">₹80</span>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                  <button type="button" class="btn btn-sm btn-outline-danger btn-qty-change btn-remove-item" data-service="Ironing">Remove</button>
+                  <span class="badge bg-secondary px-3 py-2 fs-6 qty-display" id="qty-Ironing">0</span>
+                  <button type="button" class="btn btn-sm btn-outline-success btn-qty-change btn-add-item" data-service="Ironing">Add</button>
+                </div>
+              </div>
+
+              <!-- Premium Laundry -->
+              <div class="selection-item d-flex align-items-center justify-content-between p-3 mb-2 rounded bg-light border text-dark">
+                <div>
+                  <h6 class="mb-0 fw-bold">Premium Laundry</h6>
+                  <span class="text-primary fw-bold">₹200</span>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                  <button type="button" class="btn btn-sm btn-outline-danger btn-qty-change btn-remove-item" data-service="Premium Laundry">Remove</button>
+                  <span class="badge bg-secondary px-3 py-2 fs-6 qty-display" id="qty-Premium-Laundry">0</span>
+                  <button type="button" class="btn btn-sm btn-outline-success btn-qty-change btn-add-item" data-service="Premium Laundry">Add</button>
+                </div>
+              </div>
+
+              <!-- Express Service -->
+              <div class="selection-item d-flex align-items-center justify-content-between p-3 mb-2 rounded bg-light border text-dark">
+                <div>
+                  <h6 class="mb-0 fw-bold">Express Service</h6>
+                  <span class="text-primary fw-bold">₹250</span>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                  <button type="button" class="btn btn-sm btn-outline-danger btn-qty-change btn-remove-item" data-service="Express Service">Remove</button>
+                  <span class="badge bg-secondary px-3 py-2 fs-6 qty-display" id="qty-Express-Service">0</span>
+                  <button type="button" class="btn btn-sm btn-outline-success btn-qty-change btn-add-item" data-service="Express Service">Add</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Dynamic Cart Breakdown -->
+            <div class="cart-summary p-4 bg-light rounded border text-dark">
+              <h5 class="fw-bold mb-3 border-bottom pb-2"><i class="fas fa-list-ul me-2"></i>Cart Items</h5>
+              <div id="cartEmptyState" class="text-muted py-2 text-center">
+                Your cart is empty. Click "Add" on a service above.
+              </div>
+              <ul id="cartItemsList" class="list-group list-group-flush mb-3 d-none">
+                <!-- Injected via JavaScript -->
+              </ul>
+              <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                <span class="fw-bold text-dark fs-5">Total Price:</span>
+                <span class="fw-bold text-primary fs-3" id="cartTotalPrice">₹0</span>
+              </div>
+              <div class="invalid-feedback-custom text-center mt-2 d-block" id="cartGeneralErr"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT SIDE: Booking Form -->
+        <div class="col-lg-6" data-reveal="right">
+          <div class="booking-card h-100">
+            <h4 class="mb-4"><i class="fas fa-address-card me-2"></i>Booking Details Form</h4>
             <form id="bookingForm" novalidate>
               <div class="row g-3">
                 <!-- Full Name -->
-                <div class="col-md-6">
+                <div class="col-12">
                   <label for="bookName" class="form-label">Full Name <span class="required">*</span></label>
                   <div class="input-group-custom">
                     <i class="fas fa-user"></i>
@@ -384,29 +472,12 @@
                   <label for="bookPhone" class="form-label">Phone Number <span class="required">*</span></label>
                   <div class="input-group-custom">
                     <i class="fas fa-phone"></i>
-                    <input type="tel" class="form-control custom-input" id="bookPhone" placeholder="+91 98765 43210" required />
+                    <input type="tel" class="form-control custom-input" id="bookPhone" placeholder="9876543210" required />
                   </div>
                   <div class="invalid-feedback-custom" id="bookPhoneErr"></div>
                 </div>
-                <!-- Service Type -->
-                <div class="col-md-6">
-                  <label for="bookService" class="form-label">Service Type <span class="required">*</span></label>
-                  <div class="input-group-custom">
-                    <i class="fas fa-concierge-bell"></i>
-                    <select class="form-select custom-input" id="bookService" required>
-                      <option value="">-- Select Service --</option>
-                      <option value="Dry Cleaning">Dry Cleaning (₹50/item)</option>
-                      <option value="Wash & Fold">Wash &amp; Fold (₹30/item)</option>
-                      <option value="Ironing">Ironing (₹20/item)</option>
-                      <option value="Premium Laundry">Premium Laundry (₹70/item)</option>
-                      <option value="Stain Removal">Stain Removal (₹40/item)</option>
-                      <option value="Express Service">Express Service (₹80/item)</option>
-                    </select>
-                  </div>
-                  <div class="invalid-feedback-custom" id="bookServiceErr"></div>
-                </div>
                 <!-- Pickup Date -->
-                <div class="col-md-6">
+                <div class="col-12">
                   <label for="bookDate" class="form-label">Pickup Date <span class="required">*</span></label>
                   <div class="input-group-custom">
                     <i class="fas fa-calendar-alt"></i>
@@ -415,11 +486,11 @@
                   <div class="invalid-feedback-custom" id="bookDateErr"></div>
                 </div>
                 <!-- Address -->
-                <div class="col-md-6">
+                <div class="col-12">
                   <label for="bookAddress" class="form-label">Pickup Address <span class="required">*</span></label>
                   <div class="input-group-custom">
                     <i class="fas fa-map-marker-alt"></i>
-                    <input type="text" class="form-control custom-input" id="bookAddress" placeholder="123, Main Street, City" required />
+                    <input type="text" class="form-control custom-input" id="bookAddress" placeholder="123, Main Street, Area" required />
                   </div>
                   <div class="invalid-feedback-custom" id="bookAddressErr"></div>
                 </div>
@@ -429,6 +500,8 @@
                   <textarea class="form-control custom-input" id="bookInstructions" rows="3"
                     placeholder="Any special care instructions, fabric notes, etc."></textarea>
                 </div>
+                <!-- EmailJS Status Feedback -->
+                <div class="col-12 text-center" id="bookingGeneralErr"></div>
                 <!-- Submit -->
                 <div class="col-12 text-center mt-2">
                   <button type="submit" class="btn btn-primary-custom btn-lg px-5" id="bookSubmitBtn">
@@ -443,41 +516,49 @@
 
       <!-- ===== EMAIL CONFIRMATION CARD ===== -->
       <div class="row justify-content-center mt-4">
-        <div class="col-lg-8">
+        <div class="col-lg-12">
           <div id="confirmationCard" class="confirmation-card d-none" role="alert" aria-live="polite">
             <div class="confirm-header">
               <div class="confirm-checkmark"><i class="fas fa-check"></i></div>
-              <h3>Booking Confirmed!</h3>
-              <p>Thank you for booking our laundry service. We will contact you soon.</p>
+              <h3>Booking Successful</h3>
+              <div class="my-3">
+                <span class="fs-6 d-block text-white-50">Booking ID:</span>
+                <span class="fs-4 fw-bold text-white d-block" id="confirmBookingId">BK1025</span>
+              </div>
+              <p class="mb-0">Confirmation email sent to:<br><strong id="confirmEmailAddress" class="text-white">user@email.com</strong></p>
             </div>
             <div class="confirm-details">
-              <div class="confirm-row">
-                <span class="confirm-label"><i class="fas fa-hashtag me-2"></i>Booking ID</span>
-                <span class="confirm-value" id="confirmBookingId">--</span>
-              </div>
               <div class="confirm-row">
                 <span class="confirm-label"><i class="fas fa-user me-2"></i>Customer Name</span>
                 <span class="confirm-value" id="confirmName">--</span>
               </div>
               <div class="confirm-row">
-                <span class="confirm-label"><i class="fas fa-concierge-bell me-2"></i>Service Type</span>
-                <span class="confirm-value" id="confirmService">--</span>
+                <span class="confirm-label"><i class="fas fa-phone me-2"></i>Contact Phone</span>
+                <span class="confirm-value" id="confirmPhone">--</span>
+              </div>
+              <div class="confirm-row flex-column align-items-start">
+                <span class="confirm-label mb-2"><i class="fas fa-concierge-bell me-2"></i>Selected Services Cart Details</span>
+                <div class="w-100 bg-light p-3 rounded" id="confirmServicesList" style="color: #333; font-weight: 500;">
+                  <!-- Dynamic items -->
+                </div>
+              </div>
+              <div class="confirm-row">
+                <span class="confirm-label"><i class="fas fa-money-bill-wave me-2"></i>Total Price</span>
+                <span class="confirm-value text-primary fs-4" id="confirmTotal">₹0</span>
               </div>
               <div class="confirm-row">
                 <span class="confirm-label"><i class="fas fa-calendar me-2"></i>Pickup Date</span>
                 <span class="confirm-value" id="confirmDate">--</span>
               </div>
-              <div class="confirm-row">
-                <span class="confirm-label"><i class="fas fa-phone me-2"></i>Contact</span>
-                <span class="confirm-value" id="confirmPhone">--</span>
-              </div>
             </div>
-            <p class="confirm-footer-note">
-              <i class="fas fa-info-circle me-1"></i>A confirmation will be sent to your email. Our team will call you 30 minutes before pickup.
+            <p class="confirm-footer-note text-center">
+              <i class="fas fa-info-circle me-1"></i>Thank you for booking our laundry service. We will contact you soon.
             </p>
           </div>
         </div>
       </div>
+    </div>
+  </section>
     </div>
   </section>
 
@@ -497,12 +578,12 @@
                 <label class="form-label">Select Service</label>
                 <select class="form-select calc-select" id="calcService">
                   <option value="">-- Select Service --</option>
-                  <option value="50">Dry Cleaning (₹50/item)</option>
-                  <option value="30">Wash &amp; Fold (₹30/item)</option>
-                  <option value="20">Ironing (₹20/item)</option>
-                  <option value="70">Premium Laundry (₹70/item)</option>
-                  <option value="40">Stain Removal (₹40/item)</option>
-                  <option value="80">Express Service (₹80/item)</option>
+                  <option value="150">Dry Cleaning (₹150/item)</option>
+                  <option value="100">Wash &amp; Fold (₹100/item)</option>
+                  <option value="80">Ironing (₹80/item)</option>
+                  <option value="200">Premium Laundry (₹200/item)</option>
+                  <option value="120">Stain Removal (₹120/item)</option>
+                  <option value="250">Express Service (₹250/item)</option>
                 </select>
               </div>
               <div class="col-md-6">
