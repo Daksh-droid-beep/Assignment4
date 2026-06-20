@@ -16,9 +16,9 @@
 // };
 
 window.EMAIL_CFG = {
-  serviceID: '',
-  templateID: '',
-  publicKey: ''
+  serviceID: 'service_53llo2a',
+  templateID: 'template_etpzjl4',
+  publicKey: 'OhciG7Xc1e-5XtpT_'
 };
 
 // When credentials are empty, bookings are saved locally but emails are not sent.
