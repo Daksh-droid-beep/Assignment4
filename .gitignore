@@ -1,0 +1,16 @@
+# EmailJS credentials - never commit
+js/emailConfig.local.js
+js/emailConfig.*.js
+
+# Environment variables
+.env
+.env.local
+
+# Node modules (if used)
+node_modules/
+package-lock.json
+
+# IDE
+.DS_Store
+.vscode/
+.idea/

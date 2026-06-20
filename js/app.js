@@ -1,3 +1,9 @@
+// SECURITY WARNING: EmailJS credentials must never be exposed in public code!
+// This app loads from js/emailConfig.js which is committed WITHOUT credentials for safety.
+// For development, create js/emailConfig.local.js with your real credentials (git-ignored).
+// For production, use a backend API to keep credentials secure.
+// See README.md for setup instructions.
+
 document.addEventListener('DOMContentLoaded', () => {
   // Load EmailJS config from js/emailConfig.js
   const CFG = window.EMAIL_CFG || {};
@@ -200,7 +206,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Newsletter form handling (simple)
+  // Newsletter form handling - stores locally, not emailed
+  // NOTE: To send newsletter confirmation emails securely:
+  // 1. Create a backend API endpoint
+  // 2. Frontend sends email to backend via fetch/axios
+  // 3. Backend validates, stores in database, sends email via EmailJS (server-to-server)
+  // This keeps credentials secure and prevents spam/abuse.
   if (newsletterForm) {
     newsletterForm.addEventListener('submit', (ev)=>{
       ev.preventDefault();
@@ -212,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (list.includes(e)) { alert('This email is already subscribed.'); return; }
       list.push(e);
       localStorage.setItem(NEWS_KEY, JSON.stringify(list));
-      alert('Thanks — you are subscribed.');
+      alert('Thanks — you are subscribed. (Confirmation emails require backend implementation)');
       newsletterForm.reset();
     });
   }
