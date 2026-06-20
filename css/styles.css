@@ -9,6 +9,10 @@
 
 *{ box-sizing: border-box; }
 
+html{
+  scroll-behavior: smooth;
+}
+
 body{
   margin: 0;
   font-family: "Segoe UI", Arial, Helvetica, sans-serif;
@@ -80,6 +84,7 @@ input, select, textarea{ width:100%; padding:8px; border:1px solid #ddd; border-
 
 /* Stats */
 .stats-grid{ display:flex; gap:18px; }
+.stat-number{ color: var(--accent); font-weight: 600; }
 
 /* Small screens */
 @media (max-width: 900px){ .booking-grid{ grid-template-columns: 1fr; } }
