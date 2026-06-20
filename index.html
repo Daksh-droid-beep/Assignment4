@@ -1,972 +1,118 @@
-<!DOCTYPE html>
-<html lang="en" data-theme="light">
-
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description"
-    content="FreshWave Laundry – Professional laundry services including dry cleaning, wash & fold, ironing, stain removal, and express service. Book online today!" />
-  <meta name="keywords" content="laundry service, dry cleaning, wash and fold, ironing, stain removal, express laundry" />
-  <title>FreshWave Laundry | Professional Laundry Services</title>
-
-  <!-- Bootstrap 5 CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <!-- Font Awesome 6 -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet" />
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet" />
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="style.css" />
-  
-  <!-- EmailJS Library -->
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Laundry Services — Assignment</title>
+  <link rel="stylesheet" href="css/styles.css">
 </head>
-
 <body>
-
-  <!-- Loader -->
-  <div id="pageLoader" class="page-loader">
-    <div class="loader-content">
-      <div class="loader-spinner"></div>
-      <p class="loader-text">FreshWave<span>.</span></p>
-    </div>
-  </div>
-
-  <!-- Back To Top -->
-  <button id="backToTop" class="back-to-top" aria-label="Back to top">
-    <i class="fas fa-chevron-up"></i>
-  </button>
-
-  <!-- Dark/Light Mode Toggle -->
-  <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark/light mode" title="Toggle theme">
-    <i class="fas fa-moon" id="themeIcon"></i>
-  </button>
-
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg sticky-top" id="mainNavbar">
+  <header class="site-header">
     <div class="container">
-      <!-- Logo branding -->
-      <a class="navbar-brand d-flex align-items-center gap-2" href="#home">
-        <span class="brand-icon"><i class="fas fa-soap"></i></span>
-        <span class="brand-name">Fresh<span class="brand-accent">Wave</span></span>
-      </a>
-
-      <!-- Navigation menu toggle for mobile screen -->
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
-        aria-controls="navMenu" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="toggler-icon"><i class="fas fa-bars"></i></span>
-      </button>
-
-      <!-- Navbar list items -->
-      <div class="collapse navbar-collapse" id="navMenu">
-        <ul class="navbar-nav ms-auto align-items-center gap-1">
-          <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
-          <li class="nav-item"><a class="nav-link" href="#about">About Us</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contact">Contact Us</a></li>
-          <li class="nav-item ms-lg-2">
-            <a class="btn btn-primary-custom" href="#booking">Book Now</a>
-          </li>
-        </ul>
-      </div>
+      <h1 class="logo">Laundry<span class="accent">Pro</span></h1>
+      <nav>
+        <a href="#services">Services</a>
+        <a href="#booking">Book</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </div>
-  </nav>
+  </header>
 
-  <!-- Hero Section -->
-  <section id="home" class="hero-section">
-    <div class="hero-bg-shapes">
-      <div class="shape shape-1"></div>
-      <div class="shape shape-2"></div>
-      <div class="shape shape-3"></div>
-    </div>
-    <div class="container">
-      <div class="row align-items-center min-vh-100 py-5">
-        <!-- Hero copy and buttons -->
-        <div class="col-lg-6 hero-text" data-reveal="left">
-          <div class="hero-badge mb-3">
-            <i class="fas fa-star me-1"></i> Trusted by 240+ Happy Customers
-          </div>
-          <h1 class="hero-heading">
-            Revitalize Your Clothes with
-            <span class="gradient-text">Expert Laundry</span> Service!
-          </h1>
-          <p class="hero-desc">
-            Say goodbye to laundry stress. FreshWave delivers professional dry cleaning, wash & fold,
-            ironing, and more — right to your doorstep. Fast, reliable, and affordable.
-          </p>
-          <div class="hero-buttons d-flex flex-wrap gap-3 mt-4">
-            <a href="#booking" class="btn btn-hero-primary">
-              <i class="fas fa-calendar-check me-2"></i>Book a Service Today
-            </a>
-            <a href="#services" class="btn btn-hero-outline">
-              <i class="fas fa-list me-2"></i>View Services
-            </a>
-          </div>
-          <div class="hero-trust mt-4 d-flex align-items-center gap-3">
-            <div class="trust-avatars">
-              <img src="https://i.pravatar.cc/40?img=1" alt="Customer" />
-              <img src="https://i.pravatar.cc/40?img=2" alt="Customer" />
-              <img src="https://i.pravatar.cc/40?img=3" alt="Customer" />
-            </div>
-            <p class="trust-text mb-0"><strong>500+</strong> orders completed this month</p>
-          </div>
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div>
+          <h2>Revitalize Your Clothes with Expert Laundry Services</h2>
+          <p>Fast, reliable, and affordable laundry pickup & delivery. Book online in seconds.</p>
+          <a class="btn" href="#booking">Book Now</a>
         </div>
-
-        <!-- Hero graphic column -->
-        <div class="col-lg-6 hero-image-col text-center mt-5 mt-lg-0" data-reveal="right">
-          <div class="hero-image-wrapper">
-            <div class="hero-blob"></div>
-            <img
-              src="https://img.freepik.com/free-vector/laundry-service-concept-illustration_114360-9531.jpg"
-              alt="Laundry Service Illustration" class="hero-img img-fluid" />
-            <!-- Overlay floating features -->
-            <div class="float-badge badge-top-right">
-              <i class="fas fa-check-circle me-1"></i> 100% Satisfaction
-            </div>
-            <div class="float-badge badge-bottom-left">
-              <i class="fas fa-bolt me-1"></i> Express Delivery
-            </div>
-          </div>
+        <div class="hero-ill">
+          <svg width="220" height="220" viewBox="0 0 24 24" fill="none" aria-hidden>
+            <rect x="2" y="3" width="20" height="14" rx="2" fill="#E6F7FF"></rect>
+            <circle cx="12" cy="10" r="3" fill="#4AA3FF"></circle>
+          </svg>
         </div>
       </div>
-    </div>
-    <!-- Scroll down mouse prompt -->
-    <div class="scroll-indicator">
-      <div class="scroll-mouse">
-        <div class="scroll-wheel"></div>
-      </div>
-      <small>Scroll Down</small>
-    </div>
-  </section>
+    </section>
 
-  <!-- Achievements / Stats Section -->
-  <section id="achievements" class="stats-section section-padding">
-    <div class="container">
-      <div class="row g-4 justify-content-center">
-        <div class="col-6 col-md-3" data-reveal="up">
-          <div class="stat-card">
-            <div class="stat-icon"><i class="fas fa-concierge-bell"></i></div>
-            <h3 class="stat-number" data-target="15" data-suffix="+">0</h3>
-            <p class="stat-label">Services Offered</p>
-          </div>
-        </div>
-        <div class="col-6 col-md-3" data-reveal="up" data-delay="100">
-          <div class="stat-card">
-            <div class="stat-icon"><i class="fas fa-users"></i></div>
-            <h3 class="stat-number" data-target="240" data-suffix="+">0</h3>
-            <p class="stat-label">Happy Customers</p>
-          </div>
-        </div>
-        <div class="col-6 col-md-3" data-reveal="up" data-delay="200">
-          <div class="stat-card">
-            <div class="stat-icon"><i class="fas fa-medal"></i></div>
-            <h3 class="stat-number" data-target="2" data-suffix="+">0</h3>
-            <p class="stat-label">Years Experience</p>
-          </div>
-        </div>
-        <div class="col-6 col-md-3" data-reveal="up" data-delay="300">
-          <div class="stat-card">
-            <div class="stat-icon"><i class="fas fa-star"></i></div>
-            <h3 class="stat-number" data-target="98" data-suffix="%">0</h3>
-            <p class="stat-label">Satisfaction Rate</p>
-          </div>
+    <section id="services" class="container services">
+      <div class="services-header">
+        <h3>Our Services</h3>
+        <div>
+          <button id="addServiceBtn" class="btn btn-ghost">Add Service</button>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- Services Section -->
-  <section id="services" class="services-section section-padding">
-    <div class="container">
-      <!-- Header of the section -->
-      <div class="section-header text-center mb-5" data-reveal="up">
-        <span class="section-badge">What We Offer</span>
-        <h2 class="section-title">Our <span class="gradient-text">Premium Services</span></h2>
-        <p class="section-subtitle">From everyday washing to specialty care — we handle it all with precision and care.</p>
+      <div class="cards" id="serviceCards">
+        <article class="card">
+          <button class="remove-service" aria-label="Remove service">Remove</button>
+          <h4>Wash & Fold</h4>
+          <p>Quick turnaround for everyday clothes.</p>
+          <div class="price">From $8/kg</div>
+        </article>
+        <article class="card">
+          <button class="remove-service" aria-label="Remove service">Remove</button>
+          <h4>Dry Cleaning</h4>
+          <p>Careful handling for delicate garments.</p>
+          <div class="price">From $12/item</div>
+        </article>
+        <article class="card">
+          <button class="remove-service" aria-label="Remove service">Remove</button>
+          <h4>Ironing & Press</h4>
+          <p>Professional pressing for a crisp finish.</p>
+          <div class="price">From $3/item</div>
+        </article>
       </div>
+    </section>
 
-      <!-- Search field and category tabs -->
-      <div class="service-filter mb-4" data-reveal="up">
-        <div class="row justify-content-center">
-          <div class="col-md-6">
-            <div class="search-box">
-              <i class="fas fa-search search-icon"></i>
-              <input type="text" id="serviceSearch" class="form-control search-input"
-                placeholder="Search services..." aria-label="Search services" />
-            </div>
-          </div>
+    <section id="booking" class="container booking">
+      <h3>Book a Service</h3>
+      <form id="bookingForm">
+        <div class="grid">
+          <label>Name<input name="name" required></label>
+          <label>Email<input name="email" type="email" required></label>
+          <label>Service
+            <select name="service" required>
+              <option value="Wash & Fold">Wash & Fold</option>
+              <option value="Dry Cleaning">Dry Cleaning</option>
+              <option value="Ironing & Press">Ironing & Press</option>
+            </select>
+          </label>
+          <label>Pickup Date<input name="date" type="date" required></label>
         </div>
-        <div class="filter-tabs d-flex flex-wrap justify-content-center gap-2 mt-3">
-          <button class="filter-btn active" data-filter="all">All</button>
-          <button class="filter-btn" data-filter="cleaning">Cleaning</button>
-          <button class="filter-btn" data-filter="premium">Premium</button>
-          <button class="filter-btn" data-filter="express">Express</button>
+        <label>Notes<textarea name="notes" rows="3" placeholder="Any special instructions (optional)"></textarea></label>
+        <div class="form-actions">
+          <button type="submit" class="btn">Request Pickup</button>
         </div>
-      </div>
+      </form>
+    </section>
 
-      <!-- Grid of service cards -->
-      <div class="row g-4" id="serviceCards">
-        <!-- Dry Cleaning -->
-        <div class="col-sm-6 col-lg-4 service-item" data-category="cleaning" data-reveal="up">
-          <div class="service-card">
-            <div class="service-icon-wrap">
-              <i class="fas fa-tshirt"></i>
-            </div>
-            <h4 class="service-title">Dry Cleaning</h4>
-            <p class="service-desc">Professional dry cleaning for delicate fabrics, suits, dresses, and more. Chemical-free solvents ensure fabric safety.</p>
-            <div class="service-price">₹150 <span>/item</span></div>
-            <button type="button" class="service-btn btn-add-direct" data-service="Dry Cleaning">Add to Cart <i class="fas fa-cart-plus ms-1"></i></button>
-          </div>
-        </div>
-        <!-- Wash & Fold -->
-        <div class="col-sm-6 col-lg-4 service-item" data-category="cleaning" data-reveal="up" data-delay="100">
-          <div class="service-card">
-            <div class="service-icon-wrap" style="--icon-color: #10b981;">
-              <i class="fas fa-soap"></i>
-            </div>
-            <h4 class="service-title">Wash &amp; Fold</h4>
-            <p class="service-desc">Hassle-free laundry service. We wash, dry, and neatly fold your clothes using premium detergents and softeners.</p>
-            <div class="service-price">₹100 <span>/item</span></div>
-            <button type="button" class="service-btn btn-add-direct" data-service="Wash &amp; Fold">Add to Cart <i class="fas fa-cart-plus ms-1"></i></button>
-          </div>
-        </div>
-        <!-- Ironing -->
-        <div class="col-sm-6 col-lg-4 service-item" data-category="cleaning" data-reveal="up" data-delay="200">
-          <div class="service-card">
-            <div class="service-icon-wrap" style="--icon-color: #f59e0b;">
-              <i class="fas fa-fire-alt"></i>
-            </div>
-            <h4 class="service-title">Ironing</h4>
-            <p class="service-desc">Crisp, wrinkle-free clothes every time. Our professional ironing service gives your garments a fresh, sharp look.</p>
-            <div class="service-price">₹80 <span>/item</span></div>
-            <button type="button" class="service-btn btn-add-direct" data-service="Ironing">Add to Cart <i class="fas fa-cart-plus ms-1"></i></button>
-          </div>
-        </div>
-        <!-- Premium Laundry -->
-        <div class="col-sm-6 col-lg-4 service-item" data-category="premium" data-reveal="up" data-delay="100">
-          <div class="service-card">
-            <div class="service-icon-wrap" style="--icon-color: #8b5cf6;">
-              <i class="fas fa-crown"></i>
-            </div>
-            <h4 class="service-title">Premium Laundry</h4>
-            <p class="service-desc">Luxury fabric care for high-end garments. Hand-finished, individually packed, with premium eco-friendly products.</p>
-            <div class="service-price">₹200 <span>/item</span></div>
-            <button type="button" class="service-btn btn-add-direct" data-service="Premium Laundry">Add to Cart <i class="fas fa-cart-plus ms-1"></i></button>
-          </div>
-        </div>
-        <!-- Stain Removal -->
-        <div class="col-sm-6 col-lg-4 service-item" data-category="premium" data-reveal="up" data-delay="200">
-          <div class="service-card">
-            <div class="service-icon-wrap" style="--icon-color: #ef4444;">
-              <i class="fas fa-magic"></i>
-            </div>
-            <h4 class="service-title">Stain Removal</h4>
-            <p class="service-desc">Stubborn stain? No problem. Our specialists use advanced stain-fighting techniques on all fabric types.</p>
-            <div class="service-price">₹120 <span>/item</span></div>
-            <button type="button" class="service-btn btn-add-direct" data-service="Stain Removal">Add to Cart <i class="fas fa-cart-plus ms-1"></i></button>
-          </div>
-        </div>
-        <!-- Express Service -->
-        <div class="col-sm-6 col-lg-4 service-item" data-category="express" data-reveal="up" data-delay="300">
-          <div class="service-card">
-            <div class="service-icon-wrap" style="--icon-color: #06b6d4;">
-              <i class="fas fa-bolt"></i>
-            </div>
-            <h4 class="service-title">Express Service</h4>
-            <p class="service-desc">Need it fast? Our same-day express service guarantees turnaround within hours, perfect for urgent occasions.</p>
-            <div class="service-price">₹250 <span>/item</span></div>
-            <button type="button" class="service-btn btn-add-direct" data-service="Express Service">Add to Cart <i class="fas fa-cart-plus ms-1"></i></button>
-          </div>
-        </div>
-      </div>
+    <section class="newsletter container" id="contact">
+      <h3>Subscribe for Updates</h3>
+      <form id="newsletterForm">
+        <input name="newsletterEmail" type="email" placeholder="Your email" required>
+        <button class="btn" type="submit">Subscribe</button>
+      </form>
+      <p class="muted">We send booking confirmations and occasional offers.</p>
+    </section>
 
-      <!-- Empty state for no filter results -->
-      <div id="noServiceResults" class="text-center py-4 d-none">
-        <i class="fas fa-search fa-2x mb-2 text-muted"></i>
-        <p class="text-muted">No services found. Try a different search term.</p>
-      </div>
-    </div>
-  </section>
+  </main>
 
-  <!-- Quality Description Section -->
-  <section id="quality" class="quality-section section-padding">
-    <div class="container">
-      <div class="row align-items-center g-5">
-        <!-- Choice highlight banner -->
-        <div class="col-lg-5" data-reveal="left">
-          <div class="quality-image-wrap">
-            <img src="https://img.freepik.com/free-vector/laundry-room-interior-concept_23-2148519099.jpg"
-              alt="Quality Laundry Equipment" class="img-fluid rounded-custom" />
-            <div class="quality-badge">
-              <i class="fas fa-award me-2"></i>ISO Certified Quality
-            </div>
-          </div>
-        </div>
-        <!-- Accordion list / checkmark points -->
-        <div class="col-lg-7" data-reveal="right">
-          <span class="section-badge">Why Choose Us</span>
-          <h2 class="section-title mt-2">Premium Quality, <span class="gradient-text">Every Time</span></h2>
-          <p class="section-subtitle">We take pride in delivering the highest quality laundry services. Your clothes deserve the best care.</p>
-          <div class="row g-3 mt-3">
-            <div class="col-sm-6">
-              <div class="quality-feature">
-                <div class="qf-icon"><i class="fas fa-shield-alt"></i></div>
-                <div>
-                  <h5>High Quality Service</h5>
-                  <p>Certified processes, eco-friendly detergents, and quality checks on every garment.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="quality-feature">
-                <div class="qf-icon" style="--qf-color: #10b981;"><i class="fas fa-cogs"></i></div>
-                <div>
-                  <h5>Professional Equipment</h5>
-                  <p>Industrial-grade machines with the latest technology for superior cleaning results.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="quality-feature">
-                <div class="qf-icon" style="--qf-color: #f59e0b;"><i class="fas fa-truck"></i></div>
-                <div>
-                  <h5>Fast Delivery</h5>
-                  <p>On-time pickup and delivery. Track your order in real-time with instant updates.</p>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-6">
-              <div class="quality-feature">
-                <div class="qf-icon" style="--qf-color: #8b5cf6;"><i class="fas fa-heart"></i></div>
-                <div>
-                  <h5>Customer Satisfaction</h5>
-                  <p>98% satisfaction rate. If you're not happy, we'll redo it — completely free.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Booking Section -->
-  <section id="booking" class="booking-section section-padding">
-    <div class="container">
-      <div class="section-header text-center mb-5" data-reveal="up">
-        <span class="section-badge">Booking</span>
-        <h2 class="section-title">Book a <span class="gradient-text">Service</span></h2>
-        <p class="section-subtitle">Select services to add to your cart, fill in your details, and confirm your booking below.</p>
-      </div>
-
-      <!-- TWO-COLUMN BOOKING LAYOUT -->
-      <div class="row g-4 justify-content-center">
-        <!-- Cart selection column -->
-        <div class="col-lg-6" data-reveal="left">
-          <div class="booking-card h-100">
-            <h4 class="mb-4"><i class="fas fa-shopping-cart me-2"></i>Service Selection Cart</h4>
-            
-            <!-- Available Services Selection List -->
-            <div class="services-selection-list mb-4">
-              <!-- Wash & Fold -->
-              <div class="selection-item d-flex align-items-center justify-content-between p-3 mb-2 rounded bg-light border text-dark">
-                <div>
-                  <h6 class="mb-0 fw-bold">Wash &amp; Fold</h6>
-                  <span class="text-primary fw-bold">₹100</span>
-                </div>
-                <div class="d-flex align-items-center gap-2">
-                  <button type="button" class="btn btn-sm btn-outline-danger btn-qty-change btn-remove-item" data-service="Wash &amp; Fold">Remove</button>
-                  <span class="badge bg-secondary px-3 py-2 fs-6 qty-display" id="qty-Wash-Fold">0</span>
-                  <button type="button" class="btn btn-sm btn-outline-success btn-qty-change btn-add-item" data-service="Wash &amp; Fold">Add</button>
-                </div>
-              </div>
-
-              <!-- Dry Cleaning -->
-              <div class="selection-item d-flex align-items-center justify-content-between p-3 mb-2 rounded bg-light border text-dark">
-                <div>
-                  <h6 class="mb-0 fw-bold">Dry Cleaning</h6>
-                  <span class="text-primary fw-bold">₹150</span>
-                </div>
-                <div class="d-flex align-items-center gap-2">
-                  <button type="button" class="btn btn-sm btn-outline-danger btn-qty-change btn-remove-item" data-service="Dry Cleaning">Remove</button>
-                  <span class="badge bg-secondary px-3 py-2 fs-6 qty-display" id="qty-Dry-Cleaning">0</span>
-                  <button type="button" class="btn btn-sm btn-outline-success btn-qty-change btn-add-item" data-service="Dry Cleaning">Add</button>
-                </div>
-              </div>
-
-              <!-- Ironing -->
-              <div class="selection-item d-flex align-items-center justify-content-between p-3 mb-2 rounded bg-light border text-dark">
-                <div>
-                  <h6 class="mb-0 fw-bold">Ironing</h6>
-                  <span class="text-primary fw-bold">₹80</span>
-                </div>
-                <div class="d-flex align-items-center gap-2">
-                  <button type="button" class="btn btn-sm btn-outline-danger btn-qty-change btn-remove-item" data-service="Ironing">Remove</button>
-                  <span class="badge bg-secondary px-3 py-2 fs-6 qty-display" id="qty-Ironing">0</span>
-                  <button type="button" class="btn btn-sm btn-outline-success btn-qty-change btn-add-item" data-service="Ironing">Add</button>
-                </div>
-              </div>
-
-              <!-- Premium Laundry -->
-              <div class="selection-item d-flex align-items-center justify-content-between p-3 mb-2 rounded bg-light border text-dark">
-                <div>
-                  <h6 class="mb-0 fw-bold">Premium Laundry</h6>
-                  <span class="text-primary fw-bold">₹200</span>
-                </div>
-                <div class="d-flex align-items-center gap-2">
-                  <button type="button" class="btn btn-sm btn-outline-danger btn-qty-change btn-remove-item" data-service="Premium Laundry">Remove</button>
-                  <span class="badge bg-secondary px-3 py-2 fs-6 qty-display" id="qty-Premium-Laundry">0</span>
-                  <button type="button" class="btn btn-sm btn-outline-success btn-qty-change btn-add-item" data-service="Premium Laundry">Add</button>
-                </div>
-              </div>
-
-              <!-- Express Service -->
-              <div class="selection-item d-flex align-items-center justify-content-between p-3 mb-2 rounded bg-light border text-dark">
-                <div>
-                  <h6 class="mb-0 fw-bold">Express Service</h6>
-                  <span class="text-primary fw-bold">₹250</span>
-                </div>
-                <div class="d-flex align-items-center gap-2">
-                  <button type="button" class="btn btn-sm btn-outline-danger btn-qty-change btn-remove-item" data-service="Express Service">Remove</button>
-                  <span class="badge bg-secondary px-3 py-2 fs-6 qty-display" id="qty-Express-Service">0</span>
-                  <button type="button" class="btn btn-sm btn-outline-success btn-qty-change btn-add-item" data-service="Express Service">Add</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Dynamic Cart Breakdown -->
-            <div class="cart-summary p-4 bg-light rounded border text-dark">
-              <h5 class="fw-bold mb-3 border-bottom pb-2"><i class="fas fa-list-ul me-2"></i>Cart Items</h5>
-              <div id="cartEmptyState" class="text-muted py-2 text-center">
-                Your cart is empty. Click "Add" on a service above.
-              </div>
-              <ul id="cartItemsList" class="list-group list-group-flush mb-3 d-none">
-                <!-- Injected via JavaScript -->
-              </ul>
-              <div class="d-flex justify-content-between align-items-center pt-3 border-top">
-                <span class="fw-bold text-dark fs-5">Total Price:</span>
-                <span class="fw-bold text-primary fs-3" id="cartTotalPrice">₹0</span>
-              </div>
-              <div class="invalid-feedback-custom text-center mt-2 d-block" id="cartGeneralErr"></div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Booking form column -->
-        <div class="col-lg-6" data-reveal="right">
-          <div class="booking-card h-100">
-            <h4 class="mb-4"><i class="fas fa-address-card me-2"></i>Booking Details Form</h4>
-            <form id="bookingForm" novalidate>
-              <div class="row g-3">
-                <!-- Full Name -->
-                <div class="col-12">
-                  <label for="bookName" class="form-label">Full Name <span class="required">*</span></label>
-                  <div class="input-group-custom">
-                    <i class="fas fa-user"></i>
-                    <input type="text" class="form-control custom-input" id="bookName" name="name" placeholder="John Doe" required />
-                  </div>
-                  <div class="invalid-feedback-custom" id="bookNameErr"></div>
-                </div>
-                <!-- Email -->
-                <div class="col-md-6">
-                  <label for="bookEmail" class="form-label">Email Address <span class="required">*</span></label>
-                  <div class="input-group-custom">
-                    <i class="fas fa-envelope"></i>
-                    <input type="email" class="form-control custom-input" id="bookEmail" name="email" placeholder="john@example.com" required />
-                  </div>
-                  <div class="invalid-feedback-custom" id="bookEmailErr"></div>
-                </div>
-                <!-- Phone -->
-                <div class="col-md-6">
-                  <label for="bookPhone" class="form-label">Phone Number <span class="required">*</span></label>
-                  <div class="input-group-custom">
-                    <i class="fas fa-phone"></i>
-                    <input type="tel" class="form-control custom-input" id="bookPhone" name="phone" placeholder="9876543210" required />
-                  </div>
-                  <div class="invalid-feedback-custom" id="bookPhoneErr"></div>
-                </div>
-                <!-- Pickup Date -->
-                <div class="col-12">
-                  <label for="bookDate" class="form-label">Pickup Date <span class="required">*</span></label>
-                  <div class="input-group-custom">
-                    <i class="fas fa-calendar-alt"></i>
-                    <input type="date" class="form-control custom-input" id="bookDate" name="date" required />
-                  </div>
-                  <div class="invalid-feedback-custom" id="bookDateErr"></div>
-                </div>
-                <!-- Address -->
-                <div class="col-12">
-                  <label for="bookAddress" class="form-label">Pickup Address <span class="required">*</span></label>
-                  <div class="input-group-custom">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <input type="text" class="form-control custom-input" id="bookAddress" name="address" placeholder="123, Main Street, Area" required />
-                  </div>
-                  <div class="invalid-feedback-custom" id="bookAddressErr"></div>
-                </div>
-                <!-- Special Instructions -->
-                <div class="col-12">
-                  <label for="bookInstructions" class="form-label">Special Instructions</label>
-                  <textarea class="form-control custom-input" id="bookInstructions" name="instructions" rows="3"
-                    placeholder="Any special care instructions, fabric notes, etc."></textarea>
-                </div>
-                <!-- EmailJS Status Feedback -->
-                <div class="col-12 text-center" id="bookingGeneralErr"></div>
-                <!-- Submit -->
-                <div class="col-12 text-center mt-2">
-                  <button type="submit" class="btn btn-primary-custom btn-lg px-5" id="bookSubmitBtn">
-                    <i class="fas fa-calendar-check me-2"></i>Confirm Booking
-                  </button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-
-      <!-- Email Confirmation Card -->
-      <div class="row justify-content-center mt-4">
-        <div class="col-lg-12">
-          <div id="confirmationCard" class="confirmation-card d-none" role="alert" aria-live="polite">
-            <div class="confirm-header">
-              <div class="confirm-checkmark"><i class="fas fa-check"></i></div>
-              <h3>Booking Successful</h3>
-              <div class="my-3">
-                <span class="fs-6 d-block text-white-50">Booking ID:</span>
-                <span class="fs-4 fw-bold text-white d-block" id="confirmBookingId">BK1025</span>
-              </div>
-              <p class="mb-0">Confirmation email sent to:<br><strong id="confirmEmailAddress" class="text-white">user@email.com</strong></p>
-            </div>
-            <div class="confirm-details">
-              <div class="confirm-row">
-                <span class="confirm-label"><i class="fas fa-user me-2"></i>Customer Name</span>
-                <span class="confirm-value" id="confirmName">--</span>
-              </div>
-              <div class="confirm-row">
-                <span class="confirm-label"><i class="fas fa-phone me-2"></i>Contact Phone</span>
-                <span class="confirm-value" id="confirmPhone">--</span>
-              </div>
-              <div class="confirm-row flex-column align-items-start">
-                <span class="confirm-label mb-2"><i class="fas fa-concierge-bell me-2"></i>Selected Services Cart Details</span>
-                <div class="w-100 bg-light p-3 rounded" id="confirmServicesList" style="color: #333; font-weight: 500;">
-                  <!-- Dynamic items -->
-                </div>
-              </div>
-              <div class="confirm-row">
-                <span class="confirm-label"><i class="fas fa-money-bill-wave me-2"></i>Total Price</span>
-                <span class="confirm-value text-primary fs-4" id="confirmTotal">₹0</span>
-              </div>
-              <div class="confirm-row">
-                <span class="confirm-label"><i class="fas fa-calendar me-2"></i>Pickup Date</span>
-                <span class="confirm-value" id="confirmDate">--</span>
-              </div>
-            </div>
-            <p class="confirm-footer-note text-center">
-              <i class="fas fa-info-circle me-1"></i>Thank you for booking our laundry service. We will contact you soon.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Price Calculator -->
-  <section id="calculator" class="calculator-section section-padding">
-    <div class="container">
-      <div class="section-header text-center mb-5" data-reveal="up">
-        <span class="section-badge">Pricing</span>
-        <h2 class="section-title">Price <span class="gradient-text">Calculator</span></h2>
-        <p class="section-subtitle">Get an instant estimate for your laundry. No hidden charges!</p>
-      </div>
-      <div class="row justify-content-center">
-        <div class="col-lg-8">
-          <div class="calculator-card" data-reveal="up">
-            <div class="row g-4">
-              <div class="col-md-6">
-                <label class="form-label">Select Service</label>
-                <select class="form-select calc-select" id="calcService">
-                  <option value="">-- Select Service --</option>
-                  <option value="150">Dry Cleaning (₹150/item)</option>
-                  <option value="100">Wash &amp; Fold (₹100/item)</option>
-                  <option value="80">Ironing (₹80/item)</option>
-                  <option value="200">Premium Laundry (₹200/item)</option>
-                  <option value="120">Stain Removal (₹120/item)</option>
-                  <option value="250">Express Service (₹250/item)</option>
-                </select>
-              </div>
-              <div class="col-md-6">
-                <label class="form-label">Number of Clothes</label>
-                <div class="quantity-control">
-                  <button class="qty-btn" id="qtyMinus" aria-label="Decrease quantity">
-                    <i class="fas fa-minus"></i>
-                  </button>
-                  <input type="number" id="calcQty" class="qty-input" value="1" min="1" max="100" aria-label="Quantity" />
-                  <button class="qty-btn" id="qtyPlus" aria-label="Increase quantity">
-                    <i class="fas fa-plus"></i>
-                  </button>
-                </div>
-              </div>
-              <!-- Price Breakdown -->
-              <div class="col-12">
-                <div class="price-result">
-                  <div class="price-row">
-                    <span>Service Rate</span>
-                    <span id="priceRate">₹0 /item</span>
-                  </div>
-                  <div class="price-row">
-                    <span>Number of Items</span>
-                    <span id="priceQty">0</span>
-                  </div>
-                  <div class="price-row">
-                    <span>Subtotal</span>
-                    <span id="priceSubtotal">₹0</span>
-                  </div>
-                  <div class="price-row">
-                    <span>GST (18%)</span>
-                    <span id="priceGst">₹0</span>
-                  </div>
-                  <div class="price-divider"></div>
-                  <div class="price-row total-row">
-                    <span>Total Estimate</span>
-                    <span id="priceTotal" class="total-amount">₹0</span>
-                  </div>
-                </div>
-                <div class="text-center mt-3">
-                  <a href="#booking" class="btn btn-primary-custom">
-                    <i class="fas fa-calendar-check me-2"></i>Book This Service
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonials -->
-  <section id="testimonials" class="testimonials-section section-padding">
-    <div class="container">
-      <div class="section-header text-center mb-5" data-reveal="up">
-        <span class="section-badge">Customer Reviews</span>
-        <h2 class="section-title">What Our <span class="gradient-text">Customers Say</span></h2>
-        <p class="section-subtitle">Don't just take our word for it — hear from our happy customers.</p>
-      </div>
-      <div class="row g-4">
-        <!-- Testimonial 1 -->
-        <div class="col-md-4" data-reveal="up">
-          <div class="testimonial-card">
-            <div class="stars mb-2">
-              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-              <i class="fas fa-star"></i><i class="fas fa-star"></i>
-            </div>
-            <p class="testimonial-text">"FreshWave completely transformed my wardrobe care routine. My suits come back perfectly pressed every single time. The express service is a lifesaver!"</p>
-            <div class="testimonial-author">
-              <img src="https://i.pravatar.cc/50?img=7" alt="Rohan Sharma" />
-              <div>
-                <strong>Rohan Sharma</strong>
-                <span>Software Engineer</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Testimonial 2 -->
-        <div class="col-md-4" data-reveal="up" data-delay="100">
-          <div class="testimonial-card featured">
-            <div class="stars mb-2">
-              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-              <i class="fas fa-star"></i><i class="fas fa-star"></i>
-            </div>
-            <p class="testimonial-text">"I spilled red wine on my white dress before a wedding — FreshWave's stain removal service saved the day! Couldn't believe how clean it came back. Absolutely recommend!"</p>
-            <div class="testimonial-author">
-              <img src="https://i.pravatar.cc/50?img=9" alt="Priya Mehta" />
-              <div>
-                <strong>Priya Mehta</strong>
-                <span>Event Planner</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Testimonial 3 -->
-        <div class="col-md-4" data-reveal="up" data-delay="200">
-          <div class="testimonial-card">
-            <div class="stars mb-2">
-              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-              <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-            </div>
-            <p class="testimonial-text">"The premium laundry service is worth every rupee. My cashmere sweaters have never looked better. Professional, punctual, and genuinely caring staff."</p>
-            <div class="testimonial-author">
-              <img src="https://i.pravatar.cc/50?img=12" alt="Amit Verma" />
-              <div>
-                <strong>Amit Verma</strong>
-                <span>Business Owner</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- About Us -->
-  <section id="about" class="about-section section-padding">
-    <div class="container">
-      <div class="row align-items-center g-5">
-        <!-- Left Content -->
-        <div class="col-lg-6" data-reveal="left">
-          <span class="section-badge">Our Story</span>
-          <h2 class="section-title mt-2">About <span class="gradient-text">FreshWave</span></h2>
-          <p class="mt-3">Founded in 2022, FreshWave began as a small neighbourhood laundry and grew into a trusted premium laundry brand serving hundreds of households and businesses across the city.</p>
-          <p>Our mission is simple: deliver immaculate results with eco-conscious practices, professional equipment, and a heartfelt commitment to customer satisfaction.</p>
-          <div class="about-highlights mt-4">
-            <div class="highlight-item">
-              <i class="fas fa-leaf"></i>
-              <span>Eco-Friendly Detergents</span>
-            </div>
-            <div class="highlight-item">
-              <i class="fas fa-clock"></i>
-              <span>24/7 Customer Support</span>
-            </div>
-            <div class="highlight-item">
-              <i class="fas fa-shield-alt"></i>
-              <span>Clothes Insurance Covered</span>
-            </div>
-            <div class="highlight-item">
-              <i class="fas fa-truck"></i>
-              <span>Free Pickup & Delivery</span>
-            </div>
-          </div>
-        </div>
-        <!-- Right Image -->
-        <div class="col-lg-6" data-reveal="right">
-          <div class="about-image-grid">
-            <img src="https://img.freepik.com/free-photo/front-view-washing-machine-home_23-2148880498.jpg"
-              alt="Professional Laundry Equipment" class="about-img-main" />
-            <img src="https://img.freepik.com/free-photo/ironing-clothes-flat-lay_23-2147973427.jpg"
-              alt="Ironing Service" class="about-img-secondary" />
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Faq Section -->
-  <section id="faq" class="faq-section section-padding">
-    <div class="container">
-      <div class="section-header text-center mb-5" data-reveal="up">
-        <span class="section-badge">Got Questions?</span>
-        <h2 class="section-title">Frequently Asked <span class="gradient-text">Questions</span></h2>
-      </div>
-      <div class="row justify-content-center">
-        <div class="col-lg-8">
-          <div class="accordion custom-accordion" id="faqAccordion" data-reveal="up">
-
-            <div class="accordion-item custom-accordion-item">
-              <h2 class="accordion-header">
-                <button class="accordion-button custom-accordion-btn" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#faq1" aria-expanded="true">
-                  How does the pickup and delivery work?
-                </button>
-              </h2>
-              <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
-                <div class="accordion-body custom-accordion-body">
-                  Simply book a service online, and our driver will arrive at your doorstep at the scheduled time. After cleaning, we deliver your clothes back — neatly packaged and fresh.
-                </div>
-              </div>
-            </div>
-
-            <div class="accordion-item custom-accordion-item">
-              <h2 class="accordion-header">
-                <button class="accordion-button custom-accordion-btn collapsed" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#faq2" aria-expanded="false">
-                  What if I'm not satisfied with the result?
-                </button>
-              </h2>
-              <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                <div class="accordion-body custom-accordion-body">
-                  We offer a 100% satisfaction guarantee. If you're not happy with the results, contact us within 24 hours and we'll redo your laundry completely free of charge.
-                </div>
-              </div>
-            </div>
-
-            <div class="accordion-item custom-accordion-item">
-              <h2 class="accordion-header">
-                <button class="accordion-button custom-accordion-btn collapsed" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#faq3" aria-expanded="false">
-                  How long does the express service take?
-                </button>
-              </h2>
-              <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                <div class="accordion-body custom-accordion-body">
-                  Our express service guarantees a 4-6 hour turnaround for standard items. Pickup must be before 12 PM for same-day delivery. Please note this service has limited slots — book early!
-                </div>
-              </div>
-            </div>
-
-            <div class="accordion-item custom-accordion-item">
-              <h2 class="accordion-header">
-                <button class="accordion-button custom-accordion-btn collapsed" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#faq4" aria-expanded="false">
-                  Are your detergents safe for sensitive skin?
-                </button>
-              </h2>
-              <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                <div class="accordion-body custom-accordion-body">
-                  Yes! We use hypoallergenic, eco-friendly detergents that are safe for sensitive skin, babies, and allergy sufferers. Just mention it in the Special Instructions when booking.
-                </div>
-              </div>
-            </div>
-
-            <div class="accordion-item custom-accordion-item">
-              <h2 class="accordion-header">
-                <button class="accordion-button custom-accordion-btn collapsed" type="button" data-bs-toggle="collapse"
-                  data-bs-target="#faq5" aria-expanded="false">
-                  Do you handle bulk corporate orders?
-                </button>
-              </h2>
-              <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
-                <div class="accordion-body custom-accordion-body">
-                  Absolutely! We offer special corporate packages for offices, hotels, and restaurants. Contact us for a custom quote and priority scheduling.
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Newsletter -->
-  <section id="newsletter" class="newsletter-section section-padding">
-    <div class="container">
-      <div class="newsletter-card" data-reveal="up">
-        <div class="newsletter-bg-shape"></div>
-        <div class="row align-items-center g-4">
-          <div class="col-lg-6">
-            <div class="newsletter-icon mb-3"><i class="fas fa-paper-plane"></i></div>
-            <h2>Stay in the Loop!</h2>
-            <p>Subscribe to our newsletter for exclusive offers, laundry tips, and seasonal discounts. No spam — ever!</p>
-          </div>
-          <div class="col-lg-6">
-            <form id="newsletterForm" novalidate>
-              <div class="newsletter-input-group">
-                <input type="email" id="newsletterEmail" class="newsletter-input" placeholder="Enter your email address" required />
-                <button type="submit" class="newsletter-btn" id="newsletterBtn">
-                  <i class="fas fa-paper-plane me-2"></i>Subscribe
-                </button>
-              </div>
-              <div class="invalid-feedback-custom" id="newsletterEmailErr"></div>
-              <div id="newsletterSuccess" class="newsletter-success d-none">
-                <i class="fas fa-check-circle me-2"></i>You're subscribed! Welcome to the FreshWave family 🎉
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Us -->
-  <section id="contact" class="contact-section section-padding">
-    <div class="container">
-      <div class="section-header text-center mb-5" data-reveal="up">
-        <span class="section-badge">Get In Touch</span>
-        <h2 class="section-title">Contact <span class="gradient-text">Us</span></h2>
-        <p class="section-subtitle">We'd love to hear from you. Reach out via any channel below.</p>
-      </div>
-      <div class="row g-4 justify-content-center">
-        <div class="col-md-4" data-reveal="up">
-          <div class="contact-card">
-            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
-            <h5>Our Location</h5>
-            <p>42, Laundry Lane, MG Road,<br />Bangalore – 560001, Karnataka</p>
-          </div>
-        </div>
-        <div class="col-md-4" data-reveal="up" data-delay="100">
-          <div class="contact-card">
-            <div class="contact-icon" style="--c-color: #10b981;"><i class="fas fa-phone-alt"></i></div>
-            <h5>Phone Numbers</h5>
-            <p>+91 98765 43210<br />+91 80 1234 5678</p>
-          </div>
-        </div>
-        <div class="col-md-4" data-reveal="up" data-delay="200">
-          <div class="contact-card">
-            <div class="contact-icon" style="--c-color: #f59e0b;"><i class="fas fa-envelope"></i></div>
-            <h5>Email Us</h5>
-            <p>support@freshwave.in<br />bookings@freshwave.in</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
   <footer class="site-footer">
     <div class="container">
-      <div class="row g-4 py-5">
-        <!-- Brand -->
-        <div class="col-lg-4">
-          <a class="footer-brand d-flex align-items-center gap-2 mb-3" href="#home">
-            <span class="brand-icon"><i class="fas fa-soap"></i></span>
-            <span class="brand-name">Fresh<span class="brand-accent">Wave</span></span>
-          </a>
-          <p class="footer-desc">Professional laundry services at your doorstep. Clean clothes, happy life — that's the FreshWave promise.</p>
-          <div class="social-links mt-3">
-            <a href="#" class="social-link" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="social-link" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="social-link" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-            <a href="#" class="social-link" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-            <a href="#" class="social-link" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-          </div>
-        </div>
-        <!-- Quick Links -->
-        <div class="col-sm-6 col-lg-2">
-          <h5 class="footer-heading">Quick Links</h5>
-          <ul class="footer-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#services">Services</a></li>
-            <li><a href="#about">About Us</a></li>
-            <li><a href="#booking">Book Now</a></li>
-            <li><a href="#calculator">Pricing</a></li>
-            <li><a href="#faq">FAQ</a></li>
-          </ul>
-        </div>
-        <!-- Services -->
-        <div class="col-sm-6 col-lg-3">
-          <h5 class="footer-heading">Our Services</h5>
-          <ul class="footer-links">
-            <li><a href="#services">Dry Cleaning</a></li>
-            <li><a href="#services">Wash &amp; Fold</a></li>
-            <li><a href="#services">Ironing</a></li>
-            <li><a href="#services">Premium Laundry</a></li>
-            <li><a href="#services">Stain Removal</a></li>
-            <li><a href="#services">Express Service</a></li>
-          </ul>
-        </div>
-        <!-- Contact -->
-        <div class="col-lg-3">
-          <h5 class="footer-heading">Contact Info</h5>
-          <ul class="footer-contact">
-            <li><i class="fas fa-map-marker-alt"></i> 42, Laundry Lane, MG Road, Bangalore</li>
-            <li><i class="fas fa-phone"></i> +91 98765 43210</li>
-            <li><i class="fas fa-envelope"></i> support@freshwave.in</li>
-            <li><i class="fas fa-clock"></i> Mon–Sat: 8:00 AM – 9:00 PM</li>
-          </ul>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p class="mb-0">
-          &copy; <span id="footerYear"></span> <strong>FreshWave Laundry Services</strong>. All rights reserved.
-          Crafted with <i class="fas fa-heart text-danger mx-1"></i> for clean clothes lovers.
-        </p>
-      </div>
+      <p>&copy; 2026 LaundryPro — sample assignment project.</p>
     </div>
   </footer>
 
-  <!-- Bootstrap 5 JS Bundle -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Custom JS -->
-  <script src="script.js"></script>
-</body>
+  <!-- Confirmation modal -->
+  <div id="confirmModal" class="modal" aria-hidden="true">
+    <div class="modal-dialog" role="dialog" aria-modal="true">
+      <button class="modal-close" aria-label="Close">×</button>
+      <h4>Booking Received</h4>
+      <div id="confirmContent"></div>
+      <button id="confirmOk" class="btn">OK</button>
+    </div>
+  </div>
 
+  <script src="js/app.js"></script>
+</body>
 </html>
