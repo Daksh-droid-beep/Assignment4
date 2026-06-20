@@ -35,6 +35,17 @@
       </div>
     </section>
 
+    <section id="quality" class="container quality">
+      <h3>Our Quality Promise</h3>
+      <p>At LaundryPro we treat your items like our own. We use industry-standard cleaning processes, gentle detergents, and careful inspections to make sure garments return fresh, undamaged, and ready to wear. Our team follows clear handling guidelines, and we offer a simple rewash policy if you're not satisfied.</p>
+      <ul>
+        <li>Consistent cleaning standards</li>
+        <li>Eco-friendly detergents available</li>
+        <li>Careful item inspection and tagging</li>
+        <li>Customer support for any concerns</li>
+      </ul>
+    </section>
+
     <section id="services" class="container services">
       <div class="services-header">
         <h3>Our Services</h3>
@@ -42,49 +53,69 @@
           <button id="addServiceBtn" class="btn btn-ghost">Add Service</button>
         </div>
       </div>
-      <div class="cards" id="serviceCards">
-        <article class="card">
-          <button class="remove-service" aria-label="Remove service">Remove</button>
-          <h4>Wash & Fold</h4>
-          <p>Quick turnaround for everyday clothes.</p>
-          <div class="price">From $8/kg</div>
-        </article>
-        <article class="card">
-          <button class="remove-service" aria-label="Remove service">Remove</button>
-          <h4>Dry Cleaning</h4>
-          <p>Careful handling for delicate garments.</p>
-          <div class="price">From $12/item</div>
-        </article>
-        <article class="card">
-          <button class="remove-service" aria-label="Remove service">Remove</button>
-          <h4>Ironing & Press</h4>
-          <p>Professional pressing for a crisp finish.</p>
-          <div class="price">From $3/item</div>
-        </article>
-      </div>
+        <div class="cards" id="serviceCards">
+          <article class="card" data-price="8">
+            <button class="remove-service" aria-label="Remove service">Remove</button>
+            <h4>Wash & Fold</h4>
+            <p>Quick turnaround for everyday clothes.</p>
+            <div class="price">From $8/kg</div>
+            <button class="btn add-to-cart">Add to cart</button>
+          </article>
+          <article class="card" data-price="12">
+            <button class="remove-service" aria-label="Remove service">Remove</button>
+            <h4>Dry Cleaning</h4>
+            <p>Careful handling for delicate garments.</p>
+            <div class="price">From $12/item</div>
+            <button class="btn add-to-cart">Add to cart</button>
+          </article>
+          <article class="card" data-price="3">
+            <button class="remove-service" aria-label="Remove service">Remove</button>
+            <h4>Ironing & Press</h4>
+            <p>Professional pressing for a crisp finish.</p>
+            <div class="price">From $3/item</div>
+            <button class="btn add-to-cart">Add to cart</button>
+          </article>
+        </div>
     </section>
 
-    <section id="booking" class="container booking">
-      <h3>Book a Service</h3>
-      <form id="bookingForm">
-        <div class="grid">
-          <label>Name<input name="name" required></label>
-          <label>Email<input name="email" type="email" required></label>
-          <label>Service
-            <select name="service" required>
-              <option value="Wash & Fold">Wash & Fold</option>
-              <option value="Dry Cleaning">Dry Cleaning</option>
-              <option value="Ironing & Press">Ironing & Press</option>
-            </select>
-          </label>
-          <label>Pickup Date<input name="date" type="date" required></label>
+      <section id="booking" class="container booking">
+        <h3>Book a Service</h3>
+        <div class="booking-grid">
+          <div class="cart" id="cart">
+            <h4>Your Booking Cart</h4>
+            <div id="cartItems">Cart is empty.</div>
+            <div class="cart-total">Total: <span id="cartTotal">$0.00</span></div>
+            <div class="cart-actions">
+              <button id="clearCart" class="btn btn-ghost">Clear Cart</button>
+            </div>
+          </div>
+
+          <div class="booking-form">
+            <form id="bookingForm">
+              <div class="grid">
+                <label>Name<input name="name" required></label>
+                <label>Email<input name="email" type="email" required></label>
+                <label>Phone<input name="phone" type="tel" required placeholder="e.g. +1 555 555 5555"></label>
+                <label>Pickup Date<input name="date" type="date" required></label>
+              </div>
+              <label>Notes<textarea name="notes" rows="3" placeholder="Any special instructions (optional)"></textarea></label>
+              <div class="form-actions">
+                <button type="submit" class="btn">Confirm Booking</button>
+              </div>
+            </form>
+            <div id="thankYou" aria-live="polite" style="display:none;margin-top:12px;"></div>
+          </div>
         </div>
-        <label>Notes<textarea name="notes" rows="3" placeholder="Any special instructions (optional)"></textarea></label>
-        <div class="form-actions">
-          <button type="submit" class="btn">Request Pickup</button>
+      </section>
+
+      <section id="stats" class="container stats">
+        <h3>Service Overview</h3>
+        <div class="stats-grid">
+          <div>Total Services: <span id="statServices">0</span></div>
+          <div>Cart Items: <span id="statCartItems">0</span></div>
+          <div>Pending Bookings: <span id="statBookings">0</span></div>
         </div>
-      </form>
-    </section>
+      </section>
 
     <section class="newsletter container" id="contact">
       <h3>Subscribe for Updates</h3>
@@ -114,5 +145,7 @@
   </div>
 
   <script src="js/app.js"></script>
+  <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+  <script src="js/emailConfig.js"></script>
 </body>
 </html>
